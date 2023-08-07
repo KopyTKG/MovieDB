@@ -1,0 +1,29 @@
+.box {
+    width: 35rem;
+    height: 50rem;
+    border-radius: 2rem;
+    @include FallbackBorder($radius: 1.25rem );
+    @include shine-animation(
+        $speed: map-get($map: $shine, $key: "speed"),
+        $angle: map-get($map: $shine, $key: "angle")
+    );
+
+    .backsplash {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1.25rem;
+        opacity: 0;
+        transition: linear .25s;
+        &:hover {
+            background-color: rgba($color: #797979, $alpha: 0.25);
+            opacity: 1;
+        }
+
+        font-weight: map-get($map: $font-weights, $key: "bold");
+        font-size: map-get($map: $font-sizes, $key: "xl");
+    }
+}

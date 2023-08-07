@@ -1,0 +1,29 @@
+
+.profile {
+    width: $ProfileSize;
+    height: $ProfileSize;
+    @include FallbackBorder();
+    img {
+        
+    }
+}
+
+.name {
+    width: $NameWidth;
+    height: $NameHeight;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+.checkmark {
+    width: 2rem;
+    height: 2rem;
+    mask: url(/checkmark.svg) no-repeat center / contain;
+    -webkit-mask: url(/checkmark.svg) no-repeat center / contain;
+    background-color: map-get($map: $colors, $key: "darkblue");
+    &:hover {
+        content: "Checkmark";
+    }
+}

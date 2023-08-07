@@ -1,2 +1,8 @@
 # MovieDB
-Database of my plex library
+Database viewer of my plex library
+
+```bash
+npm run dev
+# or
+yarn dev
+```
