@@ -22,3 +22,10 @@ a {
   text-decoration: none;
   color: map-get($map: $colors, $key: "darkwhite");
 }
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

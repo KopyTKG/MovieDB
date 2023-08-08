@@ -1,0 +1,59 @@
+.item {
+    width: max-content;
+    height: 35rem;
+    justify-self: center;
+    border-radius: .5rem;
+    border: 1px solid rgba(66, 66, 66, 0.1);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 83% 17%;
+    background-color: lighten($color: $SecondaryColor, $amount: 3%);
+ 
+    span {
+        background-color: lighten($color: $SecondaryColor, $amount: 3%);
+        gap: .5rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .backsplash {
+        width: 18rem;
+        aspect-ratio: 300/450;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .title {
+        background-color: inherit;
+        width: 18rem;
+        height: 2.5rem;
+        font-size: 1.125rem;
+        text-overflow: clip;
+        align-items: center;
+        font-weight: map-get($map: $font-weights, $key:    "bold");
+        color: map-get($map: $colors, $key: "lightwhite");
+
+        display: flex;
+    }
+    .info {
+        background-color: inherit;
+
+        font-size: map-get($map: $font-sizes, $key: "sm");
+        display: flex;
+        width: 18rem;
+        font-weight: map-get($map: $font-weights, $key:    "medium");
+        color: map-get($map: $colors, $key: "lightgray");
+        align-items: center;;
+
+        justify-content: space-between;
+        .year {
+            background-color: transparent;
+
+            align-self: flex-start;
+        }
+        .quantity {
+            display: flex;
+            justify-self: flex-end;
+        }
+    }
+}
