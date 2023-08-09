@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:next": "next dev",
+    "dev:api": "cd ./API && npm run dev",
+    "dev": "concurrently npm:dev:*",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -17,5 +19,8 @@
     "react-dom": "18.2.0",
     "sass": "^1.64.2",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   }
 }

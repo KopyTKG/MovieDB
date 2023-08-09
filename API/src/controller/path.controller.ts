@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import Database from "./database.controller.js";
+import fs from "fs";
 
 class Paths {
     Database: Database;
@@ -35,8 +36,10 @@ class Paths {
                     if (dbRes[0].base != decoded) {
                         res.sendStatus(401);
                     } else {
-                        let movies = await this.Database.getData('SELECT `title`,`year`,`quality`,`poster_path`, `id` FROM `Movies` ORDER BY `title`');
+                        let movies = await this.Database.getData(
+                            'SELECT `Movies`.`title`, `Movies`.`year`,`Movies`.`quality`, `Movies`.`id`,`Posters`.`src`,`Posters`.`width`, `Posters`.`height` FROM `Movies` INNER JOIN `Link` ON `Movies`.`id` = `Link`.`movieId` INNER JOIN `Posters` ON `Link`.`assetId` = `Posters`.`id` ORDER BY `Movies`.`title`');
                         res.send(movies);
+
                     }
                 }
             });

@@ -24,7 +24,7 @@ export default async function Item(props: any) {
         <>
             <a href={"/movies/"+props.id} className="item" key={props.id}>
                 <div className="backsplash" style={
-                    {backgroundImage: "url(https://www.themoviedb.org/t/p/w300_and_h450_multi_faces"+props.poster_path+')' }}/>
+                    {backgroundImage: "url(https://www.themoviedb.org/t/p/w"+props.width+"_and_h"+props.height+"_multi_faces"+props.src+')' }}/>
                 <span>
                     <div className="title">
                         {props.title}
