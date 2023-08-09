@@ -5,7 +5,7 @@ async function getMovies() {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.TVRZNU1UVXhPVGN4TWpRME5BPT0.joo9GCWLeo6wo0VutZS5FRGRZxREq9hcHwi335Sl2wW3MzyKjLyklD7n2IZfv9QitYR7QlTwSa93tBtpbO_3EQ'
+      Authorization: 'Bearer eyJhbGciOiJIUzUxMiJ9.TVRZNU1UVTNORGt6T0RnME1nPT0.8_vXM7e51URBeT41eumadH1Pk4ZlVgMCDJbmSlZMs6wf5SEOgrkgdtV3HYK7YNiyLQZpU-S9D0S3zgJP5RWVqA'
     }
   };
 
