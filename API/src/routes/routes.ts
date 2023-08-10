@@ -7,6 +7,6 @@ const api = express();
 export default async function routes(app, paths) {
     api.get("/", (req, res) => {res.sendStatus(202)});
     api.put("/auth", paths.getAuth);
-    api.get("/movies", paths.getMovies);
+    api.post("/movies", paths.getMovies);
     app.use(api)
 }

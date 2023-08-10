@@ -1,4 +1,5 @@
-async function getData(params: any) {
+
+async function getPoster(params: any) {
     const options = {
       method: 'GET',
       headers: {

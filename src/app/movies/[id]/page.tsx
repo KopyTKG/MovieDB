@@ -1,31 +1,12 @@
 'use client'
-
-
-
-
-async function getData(params: any) {
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDk4MzAzYTJhYmZlMzkwMjI4NTBhZjIxMzdlMmRjOCIsInN1YiI6IjY0ZDBmNDNlODUwOTBmMDBlNzk3ZWE5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._BN9AI5ZvOtYbMWUxO4kUAWKljuuepaGNCi5OPuOgxI'
-    }
-  };
-
-  const res = await fetch('https://api.themoviedb.org/3/movie/'+params.id+'?language=en-US', options)
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
- 
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
- 
-  return res.json()
-}
+import API from "@/modules/controllers/api.controller";
 
 export default async function Movie({params}: {params: {id: string}}) {
-  const data = await getData(params)
+  const api = new API(
+    process.env.NEXT_PUBLIC_tmdb_url,
+    process.env.NEXT_PUBLIC_tmdb_token
+  )
+  let data = await api.getData("movie/"+params.id)
   console.log(data)
 
   return (
