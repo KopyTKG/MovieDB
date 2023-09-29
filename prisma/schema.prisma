@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id Int @id
+  title String
+  year Int
+  quality String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  posters Poster[]
+}
+
+model Poster {
+  id String @id @default(uuid())
+  src String
+  width Int
+  height Int
+  movieId Int
+  display Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  movie Movie @relation(fields: [movieId], references: [id])
+}
