@@ -8,9 +8,11 @@ nav {
     padding: 0;
     margin: .25rem 1rem;
     gap: 2rem;
+    z-index: 10;
     .home {
         width: 2rem;
         height: 2rem;
+        z-index: 10;
         mask: $HomeSVG no-repeat center / contain;
         -webkit-mask: $HomeSVG no-repeat center / contain;
         background-color: map-get($map: $colors, $key: "darkwhite");

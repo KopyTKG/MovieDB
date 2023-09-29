@@ -6,17 +6,12 @@ import  API from "@/modules/controllers/api.controller";
 export default async function path_movies() {
 
   const fetcher = new API(`${process.env.BASE_URL}/api/getMovies`)
-  const getter = new API(`${process.env.BASE_URL}/api/postPoster`)
+  //const getter = new API(`${process.env.BASE_URL}/api/postPoster`)
   
   // get movies
   const dataRaw = await fetcher.getData()
   let data = dataRaw.message
 
-  // post posters
-  
-  
-  //const response = await getter.postData(postData)
-  //console.log(response)
 
   return (
       <main className="movies">

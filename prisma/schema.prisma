@@ -24,10 +24,11 @@ model Movie {
 model Poster {
   id String @id @default(uuid())
   src String
-  width Int
-  height Int
+  width Int @default(0)
+  height Int @default(0)
   movieId Int
   display Boolean @default(false)
+  backdrop Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   

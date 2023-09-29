@@ -1,0 +1,30 @@
+.movie {
+
+
+    & .backdrop {
+        height: 100vh;
+        overflow: hidden;
+        & .backposter {
+            aspect-ratio: 9/3;
+            width: 100vw;
+            background-size: cover;
+            background-position: center;
+        }
+        & .shade {
+            background-color: rgba($color: #000000, $alpha: 0.8);
+            position: absolute;
+            aspect-ratio: 9/3;
+            
+        }
+    }
+    & .poster {
+        position: absolute;
+        top: 10rem;
+        left: 5rem;
+        width: 25rem;
+        aspect-ratio: 2/3;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+    }
+}
