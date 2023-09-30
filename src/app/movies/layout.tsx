@@ -6,7 +6,7 @@ export default function MovieLayout({
     return (
         <>
           <nav> 
-            <a href="/"><div className="home"/></a>
+            <a href="/movies">Movies</a>
             <a href="/series"> Series</a>
           </nav>
           {children}

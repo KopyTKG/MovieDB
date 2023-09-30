@@ -17,13 +17,7 @@ export default async function path_movies() {
       <main className="movies">
         <div className="header">
           <div className="selectors">
-            <Button id="files">
-              All
-            </Button>
-            <Button id="query">
-              Title
-            </Button>
-            <div className="c-div">{data.length}</div>
+            total: <div className="c-div">{data.length}</div>
           </div>
           <span className="title">Movies</span>
         </div>

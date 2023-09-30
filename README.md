@@ -27,6 +27,8 @@ model Movie {
   title String
   year Int
   quality String
+  description String? @db.LongText
+  rating Float?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
@@ -46,4 +48,5 @@ model Poster {
   
   movie Movie @relation(fields: [movieId], references: [id])
 }
+
 ```

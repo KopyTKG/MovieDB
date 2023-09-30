@@ -16,8 +16,8 @@ $colors: (
     "lightblack": #171717
 );
 
-
-/* Common Colors */
+ 
+ /* Common Colors */
 $PrimaryColor: map-get($map: $colors, $key: "darkblue");
 $SecondaryColor: map-get($map: $colors, $key: "darkblack");
 

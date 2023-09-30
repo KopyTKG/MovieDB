@@ -40,59 +40,31 @@ export default async function handler(
 
 // scraping from TMDB
 
-/* data.forEach(line => {
-                let type = line.id == 706503? "/images": "/images?language=en"
-                const url = `https://api.themoviedb.org/3/movie/${line.id}${type}`
+/* 
+            data.forEach(line => {
+                const url = `https://api.themoviedb.org/3/movie/${line.id}`
                 const options = {
                     method: 'GET',
                     headers: {
                       accept: 'application/json',
-                      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZDk4MzAzYTJhYmZlMzkwMjI4NTBhZjIxMzdlMmRjOCIsInN1YiI6IjY0ZDBmNDNlODUwOTBmMDBlNzk3ZWE5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._BN9AI5ZvOtYbMWUxO4kUAWKljuuepaGNCi5OPuOgxI'
+                      Authorization: `Bearer ${process.env.TMDB_KEY}`
                     }
                 };
                 fetch(url, options)
                 .then(res => res.json())
                 .then(parsedRes => {
-                    let posterCount = 0
-                   
-                    parsedRes.backdrops.forEach((backdrop: { file_path: any; width: any; height: any; }) => {
-                        let setup = {
-                            src: backdrop.file_path,
-                            movieId: line.id,
-                            display: false,
-                            backdrop: posterCount == 1 ? true : false,
-                            width: backdrop.width,
-                            height: backdrop.height,
+                    prisma.movie.update({
+
+                        where: {
+                            id: line.id
+                        },
+                        data: {
+                            rating: parsedRes.vote_average
                         }
-                        posterCount += 1
-                    
-                        prisma.poster.create(
-                            {
-                                data: setup
-                            }
-                        ).catch(error => {
-                            throw new Error(error)
-                        })
+                    }).then(() => {
+                        
                     })
-                    posterCount = 0
-                    parsedRes.posters.forEach((poster: { file_path: any; width: any; height: any; }) => {
-                        let setup = {
-                            src: poster.file_path,
-                            movieId: line.id,
-                            display: posterCount == 1 ? true : false,
-                            width: poster.width,
-                            height: poster.height,
-                        }
-                        posterCount += 1
-                    
-                        prisma.poster.create(
-                            {
-                                data: setup
-                            }
-                        ).catch(error => {
-                            throw new Error(error)
-                        })
-                    })
+
                 })
-            }); 
+            })
 */

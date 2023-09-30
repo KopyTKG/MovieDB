@@ -33,3 +33,9 @@ main {
 section {
   overflow: hidden;
 }
+
+
+.bold {
+  font-weight: map-get($map: $font-weights, $key: "bold");
+  background-color: transparent;
+}
