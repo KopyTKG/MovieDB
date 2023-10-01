@@ -8,8 +8,8 @@ $Active : map-get($map: $colors, $key: "lightwhite");
         grid-auto-flow: column;
         grid-template-columns: 15% 1fr 15%;
         width: 100%;
-        position: sticky;
-        top: calc($NavHeight + .5rem);
+        position: relative;
+        top: 0;
         margin-bottom: 1rem;
 
         & .selectors {
@@ -57,10 +57,10 @@ $Active : map-get($map: $colors, $key: "lightwhite");
         }
         & .title {
             justify-self: center;
-            font-size: map-get($map: $font-sizes, $key: "lg");
+            font-size: map-get($map: $font-sizes, $key: "md" );
             font-weight: map-get($map: $font-weights, $key: "medium" );
             text-underline-offset: .3rem;
-            background-color: inherit;
+            background-color: transparent;
             text-decoration: solid underline 2px map-get($map: $colors, $key: "darkwhite");
         }
     }
@@ -68,4 +68,17 @@ $Active : map-get($map: $colors, $key: "lightwhite");
 
 .none {
     display: none;
+}
+
+
+@media screen and (min-width: 51.5rem) {
+    .movies {
+        & .header {
+            position: sticky;
+            top: calc($NavHeight + .5rem);
+            & .title {
+                font-size: map-get($map: $font-sizes, $key: "lg" );
+            }
+        }
+    }
 }

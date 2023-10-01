@@ -2,6 +2,7 @@
     & .backdrop {
         height: 100vh;
         overflow: hidden;
+        display: none;
         & .backposter {
             height: 52rem;
             width: 100vw;
@@ -12,9 +13,9 @@
             background-color: rgba($color: #000000, $alpha: 0.8);
             position: absolute;
             margin-top: -52rem;
-            aspect-ratio: 9/3;
             height: 52rem;
-            width: 100vw;
+            width: 100%;
+
         }
     }
     & .details {
@@ -30,7 +31,7 @@
         
         & .poster {
 
-            width: 25rem;
+            width: 10rem;
             aspect-ratio: 2/3;
 
             background-size: contain;
@@ -61,7 +62,7 @@
             & .rating {
                 font-size: map-get($map: $font-sizes, $key: "md" );
                 justify-self: center;
-            background-color: inherit;
+                background-color: inherit;
                 
             }
 
@@ -91,46 +92,85 @@
             & .description-api {
                 margin-top: -1.8rem;
                 text-align: justify;
-                width: 95%;
+                width: 100%;
                 background-color: inherit;
                 height: max-content;
-        }
+            }
         }    
+    }
+}
+
+@media screen and (min-width: 30rem) {
+    .movie {
+        & .backdrop {
+            display: block;
+        }
+        & .details  {
+            grid-template-columns: 11rem 1fr;
+            & .poster {
+                justify-self: flex-end;
+            }
+            
+            & .text {
+                margin-top: .5rem;
+                gap: .5rem;
+                width: 30rem;
+                font-size: map-get($map: $font-sizes, $key: "sm");
+                
+                & .title {
+                    font-size: map-get($map: $font-sizes, $key: "md");
+                }
+                & .rating {
+                    font-size: map-get($map: $font-sizes, $key: "sm" );;
+                    
+                }
+                & .description-api {
+                    margin-top: 0;
+                    width: 100%;
+                }
+
+            }
+            
+        }
     }
 }
 
 
 @media screen and (min-width: 55rem) {
     .movie {
+        & .backdrop {
+            display: block;
+        }
         & .details  {
             padding-bottom: 0;
 
-            margin: 0 5vw;
-
-            width: calc(100vw - 10vw);
             grid-template-columns: 30rem 1fr;
+
+            max-width: 90vw;
 
             & .poster {
                 justify-self: flex-end;
+                width: 25rem;
             }
 
             & .text {
                 padding-top: 5rem;
-
-                margin-left: 2rem;
                 width: 100%;
-
             }
         }
     }
+
 }
 
 @media screen and (min-width: 90rem) {
     .movie {
         & .details  {
 
-            margin: 0 5vw;
-            top: 10rem
+
+            & .text {
+                width: 100%;
+
+            }
         }
     }
 }

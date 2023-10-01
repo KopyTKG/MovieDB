@@ -1,12 +1,12 @@
 .box {
-    width: 35rem;
-    height: 50rem;
+    width: 20rem;
+    height: 15rem;
     border-radius: 2rem;
     @include FallbackBorder($radius: 1.25rem );
-    @include shine-animation(
-        $speed: map-get($map: $shine, $key: "speed"),
-        $angle: map-get($map: $shine, $key: "angle")
-    );
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
 
     .backsplash {
         width: 100%;
@@ -19,11 +19,39 @@
         opacity: 0;
         transition: linear .25s;
         &:hover {
-            background-color: rgba($color: #797979, $alpha: 0.25);
+            background-color: rgba($color: map-get($map: $colors, $key: "lightblack"), $alpha: 0.75);
             opacity: 1;
         }
 
         font-weight: map-get($map: $font-weights, $key: "bold");
         font-size: map-get($map: $font-sizes, $key: "xl");
+    }
+}
+@media screen and (min-width: 35rem) {
+    .box {
+        width: 35rem;
+        height: 25rem;
+    }
+}
+
+
+@media screen and (min-width: 55rem) {
+    .box {
+        width: 25rem;
+        height: 40rem;
+    }
+}
+
+@media screen and (min-width: 90rem) {
+    .box {
+        width: 35rem;
+        height: 50rem;
+    }
+}
+
+@media screen and (min-width: 130rem) {
+    .box {
+        width: 45rem;
+        height: 70rem;
     }
 }
