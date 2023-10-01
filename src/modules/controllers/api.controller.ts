@@ -4,13 +4,13 @@ class API {
         this.url = url;
     }
 
-    async getData() {
+    async getData(revalidate: number = 3600) {
         const options = {
             method: "GET",
             headers: {
                 accept: 'application/json',
             },
-            next: { revalidate: 3600 }
+            next: { revalidate: revalidate }
         };
         const url = `${this.url}`;
         const res = await fetch(url, options);
@@ -20,19 +20,18 @@ class API {
         return res.json()
     }
 
-    async postData(data: any) {
+    async postData(data: any, revalidate: number = 3600) {
         const options = {
             method: "POST",
             headers: {
                 accept: 'application/json',
             },
-            next: { revalidate: 3600 },
+            next: { revalidate: revalidate },
             body: JSON.stringify(data)
         };
         const url = `${this.url}`;
         const res = await fetch(url, options);
         if (!res.ok) {
-            console.log(res)
             return ('Failed to fetch data')
         }   
         return res.json()

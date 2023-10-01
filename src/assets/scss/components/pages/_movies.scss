@@ -2,18 +2,24 @@ $Passive : map-get($map: $colors, $key: "lightgray");
 $Active : map-get($map: $colors, $key: "lightwhite");
 
 .movies {
-    .header {
+    & .header {
+        background-color: $NavBGColor;
         display: grid;
         grid-auto-flow: column;
         grid-template-columns: 15% 1fr 15%;
         width: 100%;
-        .selectors {
+        position: sticky;
+        top: calc($NavHeight + .5rem);
+        margin-bottom: 1rem;
+
+        & .selectors {
             padding: .5rem 0 .5rem 1rem ;
             justify-self: flex-start;
             display: flex;
             flex-direction: row;
             gap: 1rem;
-            .b-div {
+            background-color: inherit;
+            & .b-div {
                 display: grid;
                 grid-template-columns: 60% 40%;
                 grid-template-rows: 1rem 1fr;
@@ -21,7 +27,7 @@ $Active : map-get($map: $colors, $key: "lightwhite");
                 color: $Passive;
                 gap: .3rem;
 
-                .point {
+                & .point {
                     margin: auto;
                     width: .75rem;
                     aspect-ratio: 1/1;
@@ -36,25 +42,25 @@ $Active : map-get($map: $colors, $key: "lightwhite");
                 &:hover {
                     cursor: pointer;
                     color: $Active;
-                    .point {
+                    & .point {
                         background-color: $Active;
                     }
                 }
                 
             }
         }
-        .c-div {
+        & .c-div {
             background-color: lighten($color: $SecondaryColor, $amount: 15%);
             padding: .15rem .275rem;
             border-radius: .5rem;
             font-weight: map-get($map: $font-weights, $key: "medium");
         }
-        .title {
+        & .title {
             justify-self: center;
-            font-size: map-get($map: $font-sizes, $key: "md");
+            font-size: map-get($map: $font-sizes, $key: "lg");
             font-weight: map-get($map: $font-weights, $key: "medium" );
             text-underline-offset: .3rem;
-
+            background-color: inherit;
             text-decoration: solid underline 2px map-get($map: $colors, $key: "darkwhite");
         }
     }

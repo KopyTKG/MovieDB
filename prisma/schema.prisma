@@ -21,16 +21,27 @@ model Movie {
   updatedAt DateTime @updatedAt
   
   posters Poster[]
+  backdrops Backdrop[]
 }
 
 model Poster {
   id String @id @default(uuid())
   src String
-  width Int @default(0)
-  height Int @default(0)
+  width Int? @default(0)
+  height Int? @default(0)
   movieId Int
-  display Boolean @default(false)
-  backdrop Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  movie Movie @relation(fields: [movieId], references: [id])
+}
+
+model Backdrop {
+  id String @id @default(uuid())
+  src String
+  width Int? @default(0)
+  height Int? @default(0)
+  movieId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   

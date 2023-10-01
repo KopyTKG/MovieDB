@@ -16,19 +16,13 @@ export default async function handler(
                     title: 'asc'
                 },
                 include: {
-                    posters: {
-                        select: {
-                            src: true,
-                            width: true,
-                            height: true
-                        },
-                        where: {
-                            display: true
-                        }
-                    }
+                    posters: true,
+                    backdrops: true
                 }
             });
             
+            
+
             res.status(200).json({message: data})
         } catch (e) {
             res.status(500).json({ message: e })
@@ -39,9 +33,8 @@ export default async function handler(
 }
 
 // scraping from TMDB
-
-/* 
-            data.forEach(line => {
+/*
+ data.forEach(line => {
                 const url = `https://api.themoviedb.org/3/movie/${line.id}`
                 const options = {
                     method: 'GET',
@@ -52,19 +45,31 @@ export default async function handler(
                 };
                 fetch(url, options)
                 .then(res => res.json())
-                .then(parsedRes => {
-                    prisma.movie.update({
-
-                        where: {
-                            id: line.id
-                        },
-                        data: {
-                            rating: parsedRes.vote_average
-                        }
+                .then(async parsedRes => {
+                    let posters: any = {
+                        src: parsedRes.poster_path,
+                        movieId: parsedRes.id
+                    }
+                    let backdrops: any = {
+                        src: parsedRes.backdrop_path,
+                        movieId: parsedRes.id
+                    }
+                    
+                    prisma.poster.create({
+                        data: posters
                     }).then(() => {
-                        
+                        prisma.backdrop.create({
+                            data: backdrops
+                        }).then(() => {
+                            console.log("done");
+                            
+                        })
                     })
+                    
 
                 })
+                
             })
 */
+
+            

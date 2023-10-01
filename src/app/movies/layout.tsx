@@ -7,7 +7,7 @@ export default function MovieLayout({
         <>
           <nav> 
             <a href="/movies">Movies</a>
-            <a href="/series"> Series</a>
+            <a href="/series">Series</a>
           </nav>
           {children}
         </>

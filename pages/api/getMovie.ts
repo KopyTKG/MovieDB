@@ -17,18 +17,8 @@ export default async function handler(
                     id: id
                 },
                 include: {
-                    posters: {
-                        orderBy: {
-                            display: 'desc',
-                        },
-                        select: {
-                            src: true,
-                            width: true,
-                            height: true,
-                            display: true,
-                            backdrop: true
-                        },
-                    }
+                    posters: true,
+                    backdrops: true
                 }
             });
             res.status(200).json({message: data})
