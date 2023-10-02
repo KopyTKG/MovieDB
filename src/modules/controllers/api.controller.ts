@@ -14,6 +14,9 @@ class API {
         };
         const url = `${this.url}`;
         const res = await fetch(url, options);
+        if (res.status == 501) {
+            return res
+        }
         if (!res.ok) {
             return ('Failed to fetch data')
         }   
@@ -31,6 +34,9 @@ class API {
         };
         const url = `${this.url}`;
         const res = await fetch(url, options);
+        if (res.status == 501) {
+            return res
+        }
         if (!res.ok) {
             return ('Failed to fetch data')
         }   

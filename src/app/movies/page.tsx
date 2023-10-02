@@ -1,16 +1,13 @@
 import Movies from "@/modules/display.movies";
-import Button from "@/modules/nav.button";
 import { Suspense } from "react";
 import  API from "@/modules/controllers/api.controller";
 
 export default async function path_movies() {
 
   const fetcher = new API(`${process.env.BASE_URL}/api/getMovies`)
-  //const getter = new API(`${process.env.BASE_URL}/api/postPoster`)
-  
-  // get movies
   const dataRaw = await fetcher.getData()
-  let data = dataRaw.message
+  let data: any = []
+  data = dataRaw.message ? dataRaw.message : []
 
 
   return (

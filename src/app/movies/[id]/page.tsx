@@ -3,23 +3,10 @@ import Pie from "@/modules/pie";
 import { Suspense } from "react";
 
 export default async function Movie({params}: {params: {id: string}}) {
-  let data =  {
-    title: "",
-    year: "",
-    quality: "",
-    description: "",
-    rating: 0,
-    backdrops: [{src: ""}],
-    posters: [{src: ""}],
-  }
-
   const fetcher = new API(`${process.env.BASE_URL}/api/getMovie`)
   let dataRaw = await fetcher.postData(params.id, 60)
-  data = dataRaw.message
-  
+  let data = dataRaw.ok ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}
 
-
-  
   
   return (
     <div className="movie">
@@ -54,9 +41,10 @@ export default async function Movie({params}: {params: {id: string}}) {
                 </span>
             </div>
           </div>
-          <div className="description">description: </div>
-          <div className="description-api">{data.description}</div>
-        </div>
+            <div className="description">description: </div>
+            <div className="description-api">{data.description}</div>
+
+          </div>
         </div>
       </section>
 
