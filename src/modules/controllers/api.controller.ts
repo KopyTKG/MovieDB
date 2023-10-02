@@ -18,7 +18,8 @@ class API {
             return res
         }
         if (!res.ok) {
-            return ('Failed to fetch data')
+            console.log(res)
+            throw new Error("Faild to fetch data")
         }   
         return res.json()
     }
