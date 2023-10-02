@@ -1,4 +1,4 @@
-export default function Pie(props:any) {
+export default function Pie(props) {
     const colors = [
         "#57bb8a",
         "#73b87e",

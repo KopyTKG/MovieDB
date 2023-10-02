@@ -5,7 +5,7 @@ import { Suspense } from "react";
 export default async function Movie({params}: {params: {id: string}}) {
   const fetcher = new API(`${process.env.BASE_URL}/api/movie`)
   let dataRaw = await fetcher.postData(params.id, 60)
-  let data = dataRaw.ok ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}
+  let data = dataRaw.message ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}
 
   
   return (
