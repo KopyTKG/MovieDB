@@ -67,7 +67,8 @@ model Backdrop {
 
 ```
 
-**API endpoints**
+### **API endpoints**
+#### all endpoint are under **https://localhost/api/endpoint**
 
 - /movie
   + request
@@ -76,7 +77,7 @@ model Backdrop {
       + movieID (as int example: 62) 
 
 **response** - json body
-```json
+```
  message: {
   title: "",
   year: "",
@@ -93,7 +94,7 @@ model Backdrop {
     - **GET**
 
 **response** - json body
-```json
+```
 message: [
   {
       id: 0,
@@ -116,7 +117,7 @@ message: [
     - **GET**
 
 **response** - json body
-```json
+```
 message: {
   id: '',
   src: '',
