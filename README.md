@@ -23,13 +23,13 @@ yarn dev
 ### Database schema
 
 ```prisma
-// May be updated for later to store series as well as movies
+
 model Movie {
   id Int @id
   title String
   year Int
   quality String
-  description String? @db.LongText
+  description String?
   rating Float?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -38,7 +38,6 @@ model Movie {
   backdrops Backdrop[]
 }
 
-// Table only for posters (first 100 is used as splash art for main menu)
 model Poster {
   id String @id @default(uuid())
   src String
@@ -51,7 +50,6 @@ model Poster {
   movie Movie @relation(fields: [movieId], references: [id])
 }
 
-// Table only for backdrop images
 model Backdrop {
   id String @id @default(uuid())
   src String
@@ -63,6 +61,7 @@ model Backdrop {
   
   movie Movie @relation(fields: [movieId], references: [id])
 }
+
 
 
 ```
