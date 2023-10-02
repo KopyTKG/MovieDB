@@ -19,6 +19,7 @@
 @import "./components/box";
 @import "./components/container";
 @import "./components/item";
+@import "./components/pie";
 
 //assets
 @import "./components/assets/profile";
@@ -26,6 +27,7 @@
 //pages
 @import "./components/pages/home";
 @import "./components/pages/movies";
+@import "./components/pages/movie";
 
 // Fallbacks
 @import "./components/fallbacks/spinner";

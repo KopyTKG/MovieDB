@@ -5,9 +5,6 @@ export default function MovieLayout({
   }) {
     return (
         <>
-          <nav> 
-            <a href="/movies">Back</a>
-          </nav>
           {children}
         </>
     )

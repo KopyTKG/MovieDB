@@ -16,8 +16,8 @@ $colors: (
     "lightblack": #171717
 );
 
-
-/* Common Colors */
+ 
+ /* Common Colors */
 $PrimaryColor: map-get($map: $colors, $key: "darkblue");
 $SecondaryColor: map-get($map: $colors, $key: "darkblack");
 
@@ -71,3 +71,7 @@ $shine: (
 $ProfileSize: 7rem;
 $NameWidth: 15rem;
 $NameHeight: 2rem;
+
+/* Navbar settings */
+$NavHeight: 3rem;
+$NavBGColor : map-get($map: $colors, $key: "lightblack");
