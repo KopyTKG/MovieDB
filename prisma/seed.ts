@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+/*
 import { Movies } from "./seeding/Movie";
 import { Posters } from './seeding/Poster';
 import { Backdrops } from './seeding/Backdrop';
@@ -33,3 +34,4 @@ main()
     .finally(async () => {
         await prisma.$disconnect();
     });
+*/
