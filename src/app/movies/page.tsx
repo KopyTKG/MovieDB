@@ -4,11 +4,10 @@ import  API from "@/modules/controllers/api.controller";
 
 export default async function path_movies() {
 
-  const fetcher = new API(`${process.env.BASE_URL}/api/getMovies`)
+  const fetcher = new API(`${process.env.BASE_URL}/api/movies`)
   const dataRaw = await fetcher.getData()
   let data: any = []
   data = dataRaw.message ? dataRaw.message : []
-
 
   return (
       <main className="movies">
