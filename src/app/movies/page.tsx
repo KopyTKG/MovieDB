@@ -1,13 +1,13 @@
 import Movies from "@/modules/display.movies";
 import { Suspense } from "react";
-import  API from "@/modules/controllers/api.controller";
+import { fetchMovies } from "@/modules/api/routes";
 
-export default async function path_movies() {
 
-  const fetcher = new API(`${process.env.BASE_URL}/api/movies`)
-  const dataRaw = await fetcher.getData()
-  let data: any = []
-  data = dataRaw.message ? dataRaw.message : []
+
+export default async function Page() {
+
+  const dataRaw = await fetchMovies()
+  let data = dataRaw.message ? dataRaw.message : []
 
   return (
       <main className="movies">

@@ -1,13 +1,10 @@
-import  API from "@/modules/controllers/api.controller";
+import { fetchMovie } from "@/modules/api/routes";
 import Pie from "@/modules/pie";
-import { Suspense } from "react";
 
-export default async function Movie({params}: {params: {id: string}}) {
-  const fetcher = new API(`${process.env.BASE_URL}/api/movie`)
-  let dataRaw = await fetcher.postData(params.id, 60)
-  let data = dataRaw.message ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}
+export default async function Page({params}: {params: {id: string}}) {
+  const dataRaw = await fetchMovie(params.id)
+  let data = dataRaw.message ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}  
 
-  
   return (
     <div className="movie">
       <section className="master">
@@ -52,3 +49,4 @@ export default async function Movie({params}: {params: {id: string}}) {
     </div>
   )
 }
+
