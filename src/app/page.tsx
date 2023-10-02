@@ -8,7 +8,7 @@ export default async function Home() {
   return (
     <main className="Page-home">
       <a href="/movies" id="movies"> <Box poster={data.src}>Movies</Box></a>
-      <a href="/series" id="series"> <Box>Series</Box></a>
+      <a href="/series" id="series"> <Box poster={""}>Series</Box></a>
     </main>
   )
 }
