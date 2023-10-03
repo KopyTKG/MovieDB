@@ -1,29 +1,42 @@
-# MovieDB
-Database viewer of my plex library
+# Movie Database viewer
+Plex library
+
+## Table of content
+
+- [Setup](#setup)
+  - [.env file](#env-file-structure)
+- [Database](#database)
+  - [prisma connection](#prisma-settings)
+  - [Database schema](#database-schema)
+- [API docs](#api-endpoints)
 
 
-### Setup
-- Run **npm install** to install all packages
-- create **.env** file
 
-**.env**
+## Setup
+1. Install all node packages with  (**`npm install`**) 
+1. Create **`.env`** file 
+1. Run application **`npm run dev`** 
+
+### .env file structure
 ```env
-DATABASE_URL="mysql://johndoe:password@127.0.0,1:3306/database"
-BASE_URL = http://localhost:3000
+DATABASE_URL="postgresql://johndoe:password@127.0.0,1:3306/database"
+NEXT_PUBLIC_BASE_URL = http://localhost:3000
 ```
- - Run 
+ 
+## Database 
 
-
-```bash
-npm run dev
-# or
-yarn dev
+### Prisma settings
+Database used in live version is [cockroachdb](https://cockroachlabs.cloud/)
+```prisma
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
 ```
 
 ### Database schema
-
+Tables are subjects to change
 ```prisma
-
 model Movie {
   id Int @id
   title String
@@ -66,8 +79,8 @@ model Backdrop {
 
 ```
 
-### **API endpoints**
-#### all endpoint are under **https://localhost/api/endpoint**
+## **API endpoints**
+all endpoint are under **https://localhost/api/endpoint**
 
 - /movie
   + request

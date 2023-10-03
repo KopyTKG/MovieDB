@@ -1,13 +1,21 @@
+'use client'
 import Movies from "@/modules/display.movies";
-import { Suspense } from "react";
-import  API from "@/modules/controllers/api.controller";
+import { useEffect, useState, Suspense } from "react";
+import API from "@/modules/controllers/api.controller"
 
-export default async function path_movies() {
 
-  const fetcher = new API(`${process.env.BASE_URL}/api/movies`)
-  const dataRaw = await fetcher.getData()
-  let data: any = []
-  data = dataRaw.message ? dataRaw.message : []
+export default function Page() {
+  const [data, setData] = useState([])
+
+  useEffect(()=>{
+    const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`)
+    fetcher.getData()
+    .then((raw) => {
+      console.log(raw.message.length)
+      setData(raw.message)
+    })
+  },[])
+
 
   return (
       <main className="movies">

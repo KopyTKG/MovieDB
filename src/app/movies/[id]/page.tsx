@@ -1,13 +1,20 @@
-import  API from "@/modules/controllers/api.controller";
+'use client'
+import API from "@/modules/controllers/api.controller";
 import Pie from "@/modules/pie";
-import { Suspense } from "react";
+import { useState, useEffect } from "react";
 
-export default async function Movie({params}: {params: {id: string}}) {
-  const fetcher = new API(`${process.env.BASE_URL}/api/movie`)
-  let dataRaw = await fetcher.postData(params.id, 60)
-  let data = dataRaw.message ? dataRaw.message: {title: "",year: "",quality: "",description: "",rating: 0,backdrops: [{src: ""}],posters: [{src: ""}],}
+export default function Page({params}: {params: {id: string}}) {
+  const [data, setData] = useState({title: "", rating: 0, year: 0, quality: "", description: "", backdrops: [{src: ""}], posters: [{src: ""}] })
 
-  
+  useEffect(() => {
+    const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`)
+    fetcher.postData(params.id, 60)
+    .then((raw) => {
+      setData(raw.message)
+    })
+  }, [])
+
+
   return (
     <div className="movie">
       <section className="master">
@@ -52,3 +59,4 @@ export default async function Movie({params}: {params: {id: string}}) {
     </div>
   )
 }
+
