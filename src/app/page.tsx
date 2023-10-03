@@ -10,7 +10,7 @@ export default function Page() {
   useEffect(()=>{
     const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/rngPoster`
     let movieFetcher = new API(URL)
-    movieFetcher.getData(0)
+    movieFetcher.getData(3)
     .then(raw => {
       console.log(raw)
       setData(raw.message)
