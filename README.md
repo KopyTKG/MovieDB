@@ -1,35 +1,48 @@
-# MovieDB
-Database viewer of my plex library
+# Movie Database viewer
+Plex library
+
+## Table of content
+
+- [Setup](#setup)
+  - [.env file](#env-file-structure)
+- [Database](#database)
+  - [prisma connection](#prisma-settings)
+  - [Database schema](#database-schema)
+- [API docs](#api-endpoints)
 
 
-### Setup
-- Run **npm install** to install all packages
-- create **.env** file
 
-**.env**
+## Setup
+1. Install all node packages with  (**`npm install`**) 
+1. Create **`.env`** file 
+1. Run application **`npm run dev`** 
+
+### .env file structure
 ```env
-DATABASE_URL="mysql://johndoe:password@127.0.0,1:3306/database"
-BASE_URL = http://localhost:3000
+DATABASE_URL="postgresql://johndoe:password@127.0.0,1:3306/database"
+NEXT_PUBLIC_BASE_URL = http://localhost:3000
 ```
- - Run 
+ 
+## Database 
 
-
-```bash
-npm run dev
-# or
-yarn dev
+### Prisma settings
+Database used in live version is [cockroachdb](https://cockroachlabs.cloud/)
+```prisma
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
 ```
 
 ### Database schema
-
+Tables are subjects to change
 ```prisma
-// May be updated for later to store series as well as movies
 model Movie {
   id Int @id
   title String
   year Int
   quality String
-  description String? @db.LongText
+  description String?
   rating Float?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -38,7 +51,6 @@ model Movie {
   backdrops Backdrop[]
 }
 
-// Table only for posters (first 100 is used as splash art for main menu)
 model Poster {
   id String @id @default(uuid())
   src String
@@ -51,7 +63,6 @@ model Poster {
   movie Movie @relation(fields: [movieId], references: [id])
 }
 
-// Table only for backdrop images
 model Backdrop {
   id String @id @default(uuid())
   src String
@@ -65,35 +76,21 @@ model Backdrop {
 }
 
 
+
 ```
 
-### **API endpoints**
-#### all endpoint are under **https://localhost/api/endpoint**
+## **API endpoints**
+all endpoint are under **https://localhost/api/endpoint**
 
-- /movie
-  + request
-    - **POST** 
-    + body
-      + movieID (as int example: 62) 
+---
+### /movies
+`GET` - returns total count of movies in DB
 
-**response** - json body
-```
- message: {
-  title: "",
-  year: "",
-  quality: "",
-  description: "",
-  rating: 0,
-  backdrops: [{src: ""}],
-  posters: [{src: ""}],
-}
-```
+`POST` - needs `limit, page` parameters in body 
+- `limit` number of movies that should be selected
+- `page` limit multiplier
 
-- /movies
-  + request
-    - **GET**
-
-**response** - json body
+return array of movies
 ```
 message: [
   {
@@ -111,20 +108,20 @@ message: [
     ...
 ]
 ```
+---
+### /movie
+`POST` - needs `id` to select record from database
 
-- /rngPoster
-  + request
-    - **GET**
-
-**response** - json body
+returns JSON of all information for that id
 ```
-message: {
-  id: '',
-  src: '',
-  width: 0,
-  height: 0,
-  movieId: 0,
-  createdAt: '',
-  updatedAt: ''
+ message: {
+  title: "",
+  year: "",
+  quality: "",
+  description: "",
+  rating: 0,
+  backdrops: [{src: ""}],
+  posters: [{src: ""}],
 }
 ```
+---
