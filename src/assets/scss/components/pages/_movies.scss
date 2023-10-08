@@ -75,7 +75,7 @@ $Active : map-get($map: $colors, $key: "lightwhite");
     .movies {
         & .header {
             position: sticky;
-            top: calc($NavHeight + .5rem);
+            top: 0;
             & .title {
                 font-size: map-get($map: $font-sizes, $key: "lg" );
             }

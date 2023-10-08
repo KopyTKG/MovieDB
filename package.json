@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "@prisma/client": "^5.3.1",
-    "next": "13.4.13",
+    "next": "^13.5.4",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-intersection-observer": "^9.5.2"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

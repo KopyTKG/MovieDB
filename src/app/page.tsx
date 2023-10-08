@@ -1,34 +1,51 @@
 'use client'
-import API from "@/modules/controllers/api.controller"
-import Box from "@/modules/box";
-import { useEffect, useState, Suspense } from "react";
-import Box_Fallback from "@/modules/fallback/box.fallback";
-
+import { useEffect, useState} from "react";
+import Movies from "@/modules/display.movies";
+import { useInView } from 'react-intersection-observer';
 
 export default function Page() {
-  const [data, setData] = useState({src: ""})
+  const [data, setData] = useState<string[]>([])
+  const [page, setPage] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const limit: Number = 21;
+  const { ref, inView, entry } = useInView({
+    /* Optional options */
+    threshold: 1,
+    initialInView: false,
+    //triggerOnce: true,
+  });
+
   useEffect(()=>{
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/rngPoster`
-    let movieFetcher = new API(URL)
-    movieFetcher.getData(3)
-    .then(raw => {
-      console.log(raw)
-      setData(raw.message)
-    })
-  },[])
+    if(inView && !loading) {
+      setPage(page+1)
+      setLoading(true)
+    }
+
+
+  },[page, inView])
+
 
   return (
-    <main className="Page-home">
-      <a href="/movies" id="movies">
-        <Suspense fallback={<Box_Fallback>Movies</Box_Fallback>}>
-          <Box poster={data.src}>Movies</Box>
-        </Suspense>
-      </a>
-      <a href="/movies" id="series">
-        <Suspense fallback={<Box_Fallback>Series</Box_Fallback>}>
-          <Box poster={""}>Series</Box>
-        </Suspense>
-      </a>
-    </main>
-  )
-}
+      <main className="movies">
+        <div className="header">
+          <div className="selectors">
+            loaded: <div className="c-div">{data.length}</div>
+          </div>
+        </div>
+        <Movies 
+        data={data}
+        setData={setData}
+        page={page}
+        limit={limit}
+        setLoading={setLoading}
+        />
+        <div className="circle">
+          <div className="outter-circle">
+          <div className="inner-circle"/>
+          </div>
+        </div>
+            
+      </main>
+    )
+  }
+

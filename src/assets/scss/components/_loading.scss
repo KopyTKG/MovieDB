@@ -1,0 +1,51 @@
+.circle {
+    width: 10rem;
+    aspect-ratio: 1/1;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & .outter-circle {
+        aspect-ratio: 1/1;
+        width: 8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background:
+		radial-gradient(
+				circle closest-side,
+				white 0,
+				white 90%,
+				transparent 90%,
+				transparent 100%,
+				white 0
+			),
+			conic-gradient(
+				#BA6D78 0,
+				#BA6D78 60%,
+				#fff 0,
+				#fff 100%
+		);
+        & .inner-circle {
+            aspect-ratio: 1/1;
+            width: 7rem;
+            border-radius: 4rem;
+            background:
+            radial-gradient(
+                    circle closest-side,
+                    white 0,
+                    white 90%,
+                    transparent 90%,
+                    transparent 100%,
+                    white 0
+                ),
+                conic-gradient(
+                    #BA6D78 0,
+                    #BA6D78 60%,
+                    #fff 0,
+                    #fff 100%
+            );
+    
+        }
+    }
+}
