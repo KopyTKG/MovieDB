@@ -33,6 +33,7 @@ class API {
             next: { revalidate: revalidate },
             body: JSON.stringify(data)
         };
+        console.log(this.url)
         const url = `${this.url}`;
         const res = await fetch(url, options);
         if (res.status == 501) {

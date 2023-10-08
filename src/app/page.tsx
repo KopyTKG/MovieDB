@@ -1,34 +1,74 @@
 'use client'
-import API from "@/modules/controllers/api.controller"
-import Box from "@/modules/box";
-import { useEffect, useState, Suspense } from "react";
-import Box_Fallback from "@/modules/fallback/box.fallback";
-
+import { useEffect, useState} from "react";
+import Movies from "@/modules/display.movies";
+import { useInView } from 'react-intersection-observer';
+import Loading from "@/modules/loading";
+import API from "@/modules/controllers/api.controller";
 
 export default function Page() {
-  const [data, setData] = useState({src: ""})
+  const [data, setData] = useState<string[]>([])
+  const [page, setPage] = useState(0)
+  const [search, setSearch] = useState("")
+  const [max, setMax] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const limit: any = 21;
+
+  let selected = page * limit;
+
+  const { ref, inView, entry } = useInView({
+    threshold: .2,
+    initialInView: false,
+  });
+
   useEffect(()=>{
-    const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/rngPoster`
-    let movieFetcher = new API(URL)
-    movieFetcher.getData(0)
-    .then(raw => {
-      console.log(raw)
-      setData(raw.message)
-    })
-  },[])
+    if(inView && !loading && max != 0 ) {
+      setPage(page+1)
+      setLoading(true)
+
+    } else if (selected >= max)  {
+      let load: any = document.getElementById("Loading")
+      load.style.display = "None";
+    } else {
+      let load: any = document.getElementById("Loading")
+      load.style.display = "Block";
+    }
+
+  },[page, inView, search, max])
+
 
   return (
-    <main className="Page-home">
-      <a href="/movies" id="movies">
-        <Suspense fallback={<Box_Fallback>Movies</Box_Fallback>}>
-          <Box poster={data.src}>Movies</Box>
-        </Suspense>
-      </a>
-      <a href="/movies" id="series">
-        <Suspense fallback={<Box_Fallback>Series</Box_Fallback>}>
-          <Box poster={""}>Series</Box>
-        </Suspense>
-      </a>
-    </main>
-  )
-}
+      <main className="movies">
+        <div className="header">
+          <div className="nav">
+            <div className="count">
+              Total: <div className="c-div">{max}</div>
+            </div>
+            <div className="search">
+              <div className="icon"/>
+              <input type="text" placeholder="search" onChange={(e) => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'instant',
+                });
+                setPage(0)
+                setSearch(e.target.value)
+              }}  />
+            </div>
+          </div>
+          
+        </div>
+        <Movies 
+        data={data}
+        setData={setData}
+        page={page}
+        limit={limit}
+        setLoading={setLoading}
+        search={search}
+        setMax={setMax}
+        />
+        <Loading useRef={ref}/>
+            
+      </main>
+    )
+  }
+

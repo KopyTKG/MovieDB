@@ -1,10 +1,10 @@
 .container  {
     width: 100%;
+    min-height: 95vh;
     height: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap : 2rem 1rem;
-    padding-bottom: 10rem;
 }
 
 @media screen and (min-width: 35rem) {

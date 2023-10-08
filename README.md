@@ -82,30 +82,15 @@ model Backdrop {
 ## **API endpoints**
 all endpoint are under **https://localhost/api/endpoint**
 
-- /movie
-  + request
-    - **POST** 
-    + body
-      + movieID (as int example: 62) 
+---
+### /movies
+`GET` - returns total count of movies in DB
 
-**response** - json body
-```
- message: {
-  title: "",
-  year: "",
-  quality: "",
-  description: "",
-  rating: 0,
-  backdrops: [{src: ""}],
-  posters: [{src: ""}],
-}
-```
+`POST` - needs `limit, page` parameters in body 
+- `limit` number of movies that should be selected
+- `page` limit multiplier
 
-- /movies
-  + request
-    - **GET**
-
-**response** - json body
+return array of movies
 ```
 message: [
   {
@@ -123,20 +108,20 @@ message: [
     ...
 ]
 ```
+---
+### /movie
+`POST` - needs `id` to select record from database
 
-- /rngPoster
-  + request
-    - **GET**
-
-**response** - json body
+returns JSON of all information for that id
 ```
-message: {
-  id: '',
-  src: '',
-  width: 0,
-  height: 0,
-  movieId: 0,
-  createdAt: '',
-  updatedAt: ''
+ message: {
+  title: "",
+  year: "",
+  quality: "",
+  description: "",
+  rating: 0,
+  backdrops: [{src: ""}],
+  posters: [{src: ""}],
 }
 ```
+---
