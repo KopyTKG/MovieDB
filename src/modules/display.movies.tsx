@@ -1,21 +1,57 @@
 'use client'
 import API from "@/modules/controllers/api.controller"
-import { useEffect } from "react";
+import { parse } from "path";
+import { useEffect, useState } from "react";
 
 
-export default function Movies({data, page, limit, setData, setLoading}: any) { 
+export default function Movies({data, page, limit, setData, setLoading, search, setMax}: any) { 
+  const [last, setLast] = useState(search)
   useEffect(()=>{
-    const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`)
-    fetcher.postData({
-      page: page,
-      limit: limit,
-    })
-    .then((raw) => {
-      const parsed: string[]= [...data, ...raw.message]
-      setData(parsed)
-      setLoading(false)
-    })
-  },[page])
+    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`
+    if(search != ""){
+      url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/search`
+      const fetcher = new API(url)
+      fetcher.postData({
+        page: page,
+        limit: limit,
+        search: search,
+      })
+      .then((raw) => {
+        let parsed: string[]= []
+        if(last == search) {
+          parsed = [...data, ...raw.message]
+
+        } else {
+          parsed = [...raw.message]
+        }
+        setData(parsed)
+        setLoading(false)
+        setLast(search)
+        setMax(parsed.length)
+      })
+    } else {
+      const fetcher = new API(url)
+      fetcher.postData({
+        page: page,
+        limit: limit,
+        search: search,
+      })
+      .then((raw) => {
+        let parsed: string[]= []
+        if(last == search) {
+          parsed = [...data, ...raw.message]
+        } else {
+          parsed = [...raw.message]
+        }
+        setData(parsed)
+        setLoading(false)
+        setLast(search)
+        setMax(parsed.length)
+
+      })
+    }
+    
+  },[page, search])
   return (
     <div className="container">
       {data?.map((movie: any) => {

@@ -1,51 +1,78 @@
+$bg: $SecondaryColor;
+$primary: map-get($map: $colors, $key: "darkorange" );
+$secondary: map-get($map: $colors, $key: "lightred" );
+
+$size: 6rem;
+
 .circle {
-    width: 10rem;
+    width: $size;
     aspect-ratio: 1/1;
-    background-color: red;
     display: flex;
     justify-content: center;
     align-items: center;
     & .outter-circle {
         aspect-ratio: 1/1;
-        width: 8rem;
+        width: calc($size - 2rem);
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 4rem;
         background:
 		radial-gradient(
 				circle closest-side,
-				white 0,
-				white 90%,
+				$bg 0,
+				$bg 90%,
 				transparent 90%,
 				transparent 100%,
-				white 0
+				$bg 0
 			),
 			conic-gradient(
-				#BA6D78 0,
-				#BA6D78 60%,
-				#fff 0,
-				#fff 100%
-		);
+				$primary 0,
+				$primary 60%,
+				$bg 0,
+				$bg 100%
+                );
+        animation: rotateRight 2s linear infinite;
+
         & .inner-circle {
             aspect-ratio: 1/1;
-            width: 7rem;
+            width: calc($size - 3rem);
             border-radius: 4rem;
             background:
             radial-gradient(
                     circle closest-side,
-                    white 0,
-                    white 90%,
-                    transparent 90%,
+                    $bg 0,
+                    $bg 87%,
+                    transparent 87%,
                     transparent 100%,
-                    white 0
+                    $bg 0
                 ),
                 conic-gradient(
-                    #BA6D78 0,
-                    #BA6D78 60%,
-                    #fff 0,
-                    #fff 100%
+                    $secondary 0,
+                    $secondary 60%,
+                    $bg 0,
+                    $bg 100%
             );
-    
+            animation: rotateLeft 1s linear infinite;
+            
         }
+    }
+}
+
+@keyframes rotateLeft {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+       transform: rotate(360deg);
+    }
+}
+
+@keyframes rotateRight {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+       transform: rotate(-360deg);
     }
 }
