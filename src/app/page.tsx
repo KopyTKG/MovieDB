@@ -45,7 +45,6 @@ export default function Page() {
   useEffect(()=> {
     jwt.getToken()
     .then(data => {
-      console.log(data)
       setToken(data)
       .catch(e => {
         throw e;
