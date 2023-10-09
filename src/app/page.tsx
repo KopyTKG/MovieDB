@@ -3,7 +3,8 @@ import { useEffect, useState} from "react";
 import Movies from "@/modules/display.movies";
 import { useInView } from 'react-intersection-observer';
 import Loading from "@/modules/loading";
-import API from "@/modules/controllers/api.controller";
+import JWT from "@/modules/controllers/jwt.controller";
+import { setToken } from "./actions";
 
 export default function Page() {
   const [data, setData] = useState<string[]>([])
@@ -11,7 +12,10 @@ export default function Page() {
   const [search, setSearch] = useState("")
   const [max, setMax] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [token, setJWT] = useState('')
   const limit: any = 21;
+
+  const jwt = new JWT();
 
   let selected = page * limit;
 
@@ -33,8 +37,22 @@ export default function Page() {
       load.style.display = "Block";
     }
 
+    
+
+
   },[page, inView, search, max])
 
+  useEffect(()=> {
+    jwt.getToken()
+    .then(data => {
+      console.log(data)
+      setToken(data)
+      .catch(e => {
+        throw e;
+      })
+      setJWT(data)
+    })
+  }, [token])
 
   return (
       <main className="movies">
@@ -65,6 +83,7 @@ export default function Page() {
         setLoading={setLoading}
         search={search}
         setMax={setMax}
+        token={token}
         />
         <Loading useRef={ref}/>
             

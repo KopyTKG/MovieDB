@@ -24,11 +24,12 @@ class API {
         return res.json()
     }
 
-    async postData(data: any, revalidate: number = 3600) {
+    async postData(data: any,token: string,  revalidate: number = 3600) {
         const options = {
             method: "POST",
             headers: {
                 accept: 'application/json',
+                Authorization: `Bearer ${token}`,
             },
             next: { revalidate: revalidate },
             body: JSON.stringify(data)
