@@ -15,7 +15,6 @@ export default function Movies({
 }: any) {
   const [last, setLast] = useState(search);
   useEffect(() => {
-    console.log(token);
     let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`;
     if (token != "") {
       if (search != "") {
@@ -38,7 +37,6 @@ export default function Movies({
             setLoading(false);
             setLast(search);
             setMax(parsed.length);
-            console.log(raw);
           });
       } else {
         const fetcher = new API(url);
@@ -59,7 +57,6 @@ export default function Movies({
             setLoading(false);
             setLast(search);
             setMax(parsed.length);
-            console.log(raw);
           });
       }
     }

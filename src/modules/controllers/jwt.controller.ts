@@ -4,7 +4,7 @@ class JWT {
     private key: any;
     private alg: any;
     constructor() {
-        this.key = String(process.env.NEXT_PUBLIC_JWT_KEY);
+        this.key = process.env.NEXT_PUBLIC_JWT_KEY;
         this.alg = 'RS512'
     }
 
