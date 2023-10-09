@@ -9,6 +9,7 @@ class JWT {
     }
 
     async getToken() {
+        throw new Error(typeof(process.env.NEXT_PUBLIC_JWT_KEY))
         const secret = await jose.importPKCS8(this.key, this.alg);
 
         const jwt = await new jose.SignJWT({'urn:thekrew:claim': true})
