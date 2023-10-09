@@ -1,19 +1,38 @@
 import prisma from '../../../../prisma/client'
+import JWT from '@/modules/controllers/jwt.controller';
+import * as jose from 'jose'
 
 export async function POST(req: Request) {
     try{
-        const id = parseInt(JSON.parse(await req.json()))
-        const data = await prisma.movie.findUnique({
-            where: {
-                id: id
-            },
-            include: {
-                posters: true,
-                backdrops: true
+        const headers = req.headers
+        const token = String(headers.get('authorization')?.split(" ")[1])
+        const settings = await req.json();
+
+        // JWT stuff
+        const jwt = new JWT();
+        const secret = await jwt.getPublic();
+
+        try {
+            const { payload, protectedHeader } = await jose.jwtVerify(token , secret, {
+                issuer: 'urn:thekrew:issuer',
+                audience: 'urn:thekrew:audience',
+            })
+            if (payload) {
+                const data = await prisma.movie.findUnique({
+                    where: {
+                        id: parseInt(settings)
+                    },
+                    include: {
+                        posters: true,
+                        backdrops: true
+                    }
+                });
+                return Response.json(data)
             }
-        });
-        return Response.json({message: data})
+        } catch (e) {
+            return Response.json('Invalid token')
+        }
     } catch (e) {
-        return Response.json({ message: e })
+        return Response.json(e)
     }
 }

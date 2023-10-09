@@ -18,13 +18,12 @@ class API {
             return res
         }
         if (!res.ok) {
-            console.log(res)
             throw new Error("Faild to fetch data")
         }   
         return res.json()
     }
 
-    async postData(data: any,token: string,  revalidate: number = 3600) {
+    async postData(data: any, token: string,  revalidate: number = 3600) {
         const options = {
             method: "POST",
             headers: {
@@ -34,7 +33,6 @@ class API {
             next: { revalidate: revalidate },
             body: JSON.stringify(data)
         };
-        console.log(this.url)
         const url = `${this.url}`;
         const res = await fetch(url, options);
         if (res.status == 501) {

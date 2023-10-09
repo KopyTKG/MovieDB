@@ -2,17 +2,31 @@
 import API from "@/modules/controllers/api.controller";
 import Pie from "@/modules/pie";
 import { useState, useEffect } from "react";
+import JWT from "@/modules/controllers/jwt.controller";
+import { setToken } from "../actions";
 
 export default function Page({params}: {params: {id: string}}) {
   const [data, setData] = useState({title: "", rating: 0, year: 0, quality: "", description: "", backdrops: [{src: ""}], posters: [{src: ""}] })
+  const jwt = new JWT();
+  const [token, setJWT] = useState("")
 
   useEffect(() => {
-    const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`)
-    fetcher.postData(params.id, 60)
-    .then((raw) => {
-      setData(raw.message)
+    jwt.getToken()
+    .then(data => {
+      setToken(data)
+      .catch(e => {
+        throw e;
+      })
+      setJWT(data)
+      if(token != "") {
+        const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`)
+        fetcher.postData(params.id, data, 60 )
+        .then((raw) => {
+          setData(raw)
+        })
+      }
     })
-  }, [])
+  }, [token])
 
 
   return (
