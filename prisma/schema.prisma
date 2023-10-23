@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Movie {
-  id Int @id
+  id Int @id @map("_id")
   title String
   year Int
   quality String
@@ -25,7 +25,7 @@ model Movie {
 }
 
 model Poster {
-  id String @id @default(uuid())
+  id String @id @default(uuid()) @map("_id")
   src String
   width Int? @default(0)
   height Int? @default(0)
@@ -37,7 +37,7 @@ model Poster {
 }
 
 model Backdrop {
-  id String @id @default(uuid())
+  id String @id @default(uuid()) @map("_id")
   src String
   width Int? @default(0)
   height Int? @default(0)
