@@ -4,11 +4,12 @@ class API {
         this.url = url;
     }
 
-    async getData(revalidate: number = 3600) {
+    async getData(token?: string, revalidate: number = 3600) {
         const options = {
             method: "GET",
             headers: {
                 accept: 'application/json',
+                Authorization: token?`Bearer ${token}`: '',
             },
             next: { revalidate: revalidate }
         };

@@ -1,0 +1,40 @@
+.dash-row {
+  display: grid;
+  background-color: transparent;
+  gap: 2rem;
+
+  & .dash-col {
+    display: flex;
+    border-radius: 0.25rem;
+    outline: 2px solid map-get($map: $colors, $key: "lightwhite");
+    background-color: transparent;
+    width: 100%;
+
+    & .dash-card {
+      background-color: orangered;
+      width: 100%;
+      height: 100%;
+      & h2 {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.dash-2 {
+  display: grid;
+  background-color: transparent;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dash-3 {
+  display: grid;
+  background-color: transparent;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.dash-4 {
+  display: grid;
+  background-color: transparent;
+  grid-template-columns: repeat(4, 1fr);
+}

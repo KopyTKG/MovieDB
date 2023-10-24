@@ -1,51 +1,45 @@
 $HomeSVG: url(/home.svg);
 
-nav {
-    background-color: $NavBGColor;
-    
-    height: $NavHeight;
-    padding: .25rem .5rem;
-    position: sticky;
-    top: 0;
-    display: flex;
-    
-    justify-content: flex-start;
-    align-items: center;
-    gap: 2rem;
+.nav {
+  background-color: $NavBGColor;
 
-    
+  height: $NavHeight;
+  padding: 0.25rem 0.5rem;
+  position: sticky;
+  top: 0;
+  display: flex;
+
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+
+  z-index: 10;
+
+  .home {
+    width: 2rem;
+    height: 2rem;
     z-index: 10;
+    mask: $HomeSVG no-repeat center / contain;
+    -webkit-mask: $HomeSVG no-repeat center / contain;
+    background-color: map-get($map: $colors, $key: "darkwhite");
+  }
 
-    & a {
-        background-color: $NavBGColor;
-        width: fit-content;
-        height: calc($NavHeight - .75rem);
-        padding: 0 .5rem;
-        display: flex;
-        flex-direction: column ;
-        justify-content: center;
-
-        border-radius: .5rem;
-        outline: 1px solid map-get($map: $colors, $key: "darkwhite");
-
-        transition: .125s ease-in-out;
-
-        &:hover {
-            cursor: pointer;
-            font-weight: map-get($map: $font-weights, $key: "bold");
-            background-color: lighten($color: $NavBGColor, $amount: 7%);
-        }
+  & .admin {
+    display: flex;
+    gap: 0.5rem;
+    background-color: transparent;
+    & .admin-name {
+      width: 8rem;
+      text-align: center;
+      margin: auto;
+      font-weight: map-get($map: $font-weights, $key: "bold");
+      font-size: map-get($map: $font-sizes, $key: "sm");
+      background-color: transparent;
     }
-
-    .home {
-        width: 2rem;
-        height: 2rem;
-        z-index: 10;
-        mask: $HomeSVG no-repeat center / contain;
-        -webkit-mask: $HomeSVG no-repeat center / contain;
-        background-color: map-get($map: $colors, $key: "darkwhite");
+    & .btn-nav {
+      justify-self: flex-end;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
     }
-
-    
+  }
 }
-
