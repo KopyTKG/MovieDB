@@ -7,7 +7,6 @@ import API from "@/modules/controllers/api.controller";
 export default function DashBoard() {
   const { user, error, isLoading } = useUser();
   const [count, setCount] = useState<number | undefined>();
-  
   useEffect(() => {
     if (error) {
       redirect("/");
@@ -15,7 +14,7 @@ export default function DashBoard() {
     if (!user && !isLoading) {
       redirect("/");
     }
-  })
+  });
 
   useEffect(() => {
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/dashboard`;
@@ -23,7 +22,6 @@ export default function DashBoard() {
     fetcher.getData().then((raw) => {
       setCount(raw);
     });
-  
   }, [count]);
 
   if (isLoading) {
