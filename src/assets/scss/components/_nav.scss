@@ -36,10 +36,11 @@ $HomeSVG: url(/home.svg);
       font-size: map-get($map: $font-sizes, $key: "sm");
       background-color: transparent;
     }
-    & .btn-nav {
-      justify-self: flex-end;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-    }
+
   }
+}
+.btn-nav {
+  justify-self: flex-end;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
 }

@@ -7,7 +7,16 @@ export default function RootLayout({
 }) {
   return (
     <>
+      <div className="nav">
+        <a className="btn-nav btn-secondary-outline" href="/">
+          home
+        </a>
+        <a className="btn-nav btn-secondary-outline" href="/api/auth/logout">
+          logout
+        </a>
+      </div>
       {children}
     </>
-  )
+  );
 }
+

@@ -7,6 +7,7 @@ import API from "@/modules/controllers/api.controller";
 export default function DashBoard() {
   const { user, error, isLoading } = useUser();
   const [count, setCount] = useState<number | undefined>();
+  const [posts, setPosts] = useState<Array<any>>();
   useEffect(() => {
     if (error) {
       redirect("/");
@@ -17,12 +18,20 @@ export default function DashBoard() {
   });
 
   useEffect(() => {
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/dashboard`;
-    const fetcher = new API(url);
-    fetcher.getData().then((raw) => {
-      setCount(raw);
-    });
-  }, [count]);
+    if (user) {
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin`;
+      const count = new API(url + "/count");
+      count.getData().then((raw) => {
+        setCount(raw);
+      });
+
+      const latest = new API(url + "/latest");
+      latest.getData().then((raw) => {
+        setPosts(raw);
+        console.log(raw);
+      });
+    }
+  }, [user]);
 
   if (isLoading) {
     return (
@@ -53,13 +62,33 @@ export default function DashBoard() {
             </div>
             <div className="dash-col">
               <div className="dash-card">
-                <h2>Tagged count</h2>
+                <h2>Add movie</h2>
               </div>
             </div>
             <div className="dash-col">
               <div className="dash-card">
-                <h2>Add movie</h2>
+                <h2>Edit movie</h2>
               </div>
+            </div>
+          </div>
+          <div className="dash-row">
+            <div className="dash-collection-title"> Latest additions </div>
+            <div className="dash-collection">
+              {posts ? (
+                posts.map((post) => (
+                  <a className="dash-item" key={post.id} href={"/" + post.id}>
+                    <div className="dash-item-title">{post.title}</div>
+                    <div className="dash-item-desc">
+                      Added at:{" "}
+                      {new Date(post.createdAt).toDateString() +
+                        " " +
+                        new Date(post.createdAt).toLocaleTimeString()}
+                    </div>
+                  </a>
+                ))
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>

@@ -11,7 +11,8 @@
     width: 100%;
 
     & .dash-card {
-      background-color: orangered;
+      padding: 0 2rem;
+      background-color: map-get($map: $colors, $key: 'darkgray' );
       width: 100%;
       height: 100%;
       & h2 {

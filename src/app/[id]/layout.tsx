@@ -1,15 +1,19 @@
-
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-   <>
-    <nav>
-        <a href="/"> home </a>
-    </nav>
-    {children}
-   </>
-  )
+    <>
+      <div className="nav">
+        <a className="btn-nav btn-secondary-outline" href="/">
+          home
+        </a>
+        <a className="btn-nav btn-secondary-outline" href="/admin">
+          admin
+        </a>
+      </div>
+      {children}
+    </>
+  );
 }
