@@ -22,20 +22,21 @@
   }
 }
 
-.dash-2 {
-  display: grid;
-  background-color: transparent;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.dash-3 {
+.dash-nav {
   display: grid;
   background-color: transparent;
   grid-template-columns: repeat(3, 1fr);
 }
 
-.dash-4 {
-  display: grid;
-  background-color: transparent;
-  grid-template-columns: repeat(4, 1fr);
+@media screen and (max-width: 47rem) {
+  .dash-nav {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 80rem) and (min-width: 47rem) {
+  .dash-nav {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 }

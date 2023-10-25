@@ -1,5 +1,3 @@
-import { UserProvider } from "@auth0/nextjs-auth0/client"
-
 export default function RootLayout({
   children,
 }: {
@@ -7,14 +5,17 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <div className="nav">
+      <nav>
         <a className="btn-nav btn-secondary-outline" href="/">
           home
+        </a>
+        <a className="btn-nav btn-secondary-outline" href="/admin">
+          dashboard
         </a>
         <a className="btn-nav btn-secondary-outline" href="/api/auth/logout">
           logout
         </a>
-      </div>
+      </nav>
       {children}
     </>
   );

@@ -54,7 +54,7 @@ export default function DashBoard() {
       <div className="dash-body">
         <h1 className="dash-title">Dashboard</h1>
         <div className="dash-container">
-          <div className="dash-row dash-3">
+          <div className="dash-row dash-nav">
             <div className="dash-col">
               <div className="dash-card">
                 <h2>Movies count: {count}</h2>
@@ -62,7 +62,9 @@ export default function DashBoard() {
             </div>
             <div className="dash-col">
               <div className="dash-card">
+                <a href="/admin/create">
                 <h2>Add movie</h2>
+                </a>
               </div>
             </div>
             <div className="dash-col">

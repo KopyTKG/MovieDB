@@ -6,6 +6,7 @@ import Loading from "@/modules/loading";
 import JWT from "@/modules/controllers/jwt.controller";
 import { setToken } from "./actions";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import HomeNav from "@/modules/nav.home";
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
@@ -50,48 +51,7 @@ export default function Page() {
 
   return (
     <main className="movies">
-      <div className="header">
-        <div className="nav">
-          <div className="count">
-            Total: <div className="c-div">{max}</div>
-          </div>
-          <div className="search">
-            <div className="icon" />
-            <input
-              type="text"
-              placeholder="search"
-              onChange={(e) => {
-                window.scrollTo({
-                  top: 0,
-                  behavior: "instant",
-                });
-                setPage(0);
-                setSearch(e.target.value);
-              }}
-            />
-          </div>
-          <div className="admin">
-            <a href="admin" className="admin-name">
-            {user?.name ? user?.nickname: ""}
-            </a>
-            {user?.name ? (
-              <a
-                className="btn-nav btn-secondary-outline"
-                href="api/auth/logout"
-              >
-                Logout
-              </a>
-            ) : (
-              <a
-                className="btn-nav btn-secondary-outline"
-                href="api/auth/login"
-              >
-                Login
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
+      <HomeNav max={max} user={user} setSearch={setSearch} setPage={setPage} />
       <Movies
         data={data}
         setData={setData}

@@ -1,0 +1,45 @@
+.dash-body {
+  & form {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 50rem;
+    height: 80rem;
+    outline: 2px solid map-get($map: $colors, $key: "lightwhite");
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    & h2 {
+      font-size: map-get($map: $font-sizes, $key: "xl");
+      text-align: center;
+    }
+
+    & .form-head {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-bottom: 1px solid map-get($map: $colors, $key: "darkgray");
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    & .form-body {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    & button {
+      color: map-get($map: $colors, $key: "lightwhite");
+    }
+
+    & input {
+      color: map-get($map: $colors, $key: "lightwhite");
+      height: 1rem;
+      padding: 0.25rem 0.5rem;
+      font-size: map-get($map: $font-sizes, $key: "sm");
+    }
+    & input::-webkit-outer-spin-button,
+    & input::-webkit-inner-spin-button {
+      display: none;
+    }
+  }
+}

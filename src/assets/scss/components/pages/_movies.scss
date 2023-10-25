@@ -1,113 +1,180 @@
-$Passive : map-get($map: $colors, $key: "lightgray");
-$Active : map-get($map: $colors, $key: "lightwhite");
+$Passive: map-get(
+  $map: $colors,
+  $key: "lightgray",
+);
+$Active: map-get(
+  $map: $colors,
+  $key: "lightwhite",
+);
 
 .movies {
-    & .header {
+  & .header {
+    background-color: $NavBGColor;
+    padding: 0.5rem 0;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    margin-bottom: 1rem;
+
+    & .nav {
+      padding: 0 1rem;
+      height: 100%;
+      background-color: $NavBGColor;
+      display: grid;
+      grid-template-columns: 8% 1fr 15%;
+      gap: 2rem;
+      & .count {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
         background-color: $NavBGColor;
-        padding: .5rem 0;
+        align-items: center;
+      }
+      & .search {
+        background-color: $NavBGColor;
         width: 100%;
-        position: sticky;
-        top: 0;
-        margin-bottom: 1rem;
-
-        & .nav {
-            padding: 0 1rem;
-            height: 100%;
-            background-color: $NavBGColor;
-            display: grid;
-            grid-template-columns:15% 1fr;
-            gap: 2rem;
-            & .count {
-                display: flex;
-                flex-direction: row;
-                gap: .5rem;
-                background-color: $NavBGColor;
-                align-items: center;
-            }
-            & .search {
-                background-color: $NavBGColor;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: .5rem;
-                & input {
-                    width: 90%;
-                    border-radius: .25rem;
-                    outline: none;
-                    box-shadow: none;
-                    border: 1px solid map-get($map: $colors, $key: "lightwhite") ;
-                    padding: .25rem .5rem;
-                    color: map-get($map: $colors, $key: "lightwhite");
-                }
-
-                & .icon {
-                    aspect-ratio: 1;
-                    background-color: map-get($map: $colors, $key: "lightwhite");
-                    width: 1.5rem;
-                    mask-mode: auto;
-                    -webkit-mask-image: url("/search.svg");
-                    mask-image: url("/search.svg");
-                    -webkit-mask-repeat: no-repeat;
-                    mask-repeat: no-repeat; 
-                }
-            }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        & input {
+          width: 60%;
+          border-radius: 0.25rem;
+          outline: none;
+          box-shadow: none;
+          border: 1px solid map-get($map: $colors, $key: "lightwhite");
+          padding: 0.25rem 0.5rem;
+          color: map-get($map: $colors, $key: "lightwhite");
         }
-        & .c-div {
-            background-color: lighten($color: $SecondaryColor, $amount: 15%);
-            padding: .15rem .275rem;
-            border-radius: .5rem;
-            font-weight: map-get($map: $font-weights, $key: "medium");
+
+        & .icon {
+          aspect-ratio: 1;
+          background-color: map-get($map: $colors, $key: "lightwhite");
+          width: 1.5rem;
+          mask-mode: auto;
+          -webkit-mask-image: url("/search.svg");
+          mask-image: url("/search.svg");
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
         }
+      }
+      & .admin {
+        & .dropdown {
+          display: none;
+        }
+        display: flex;
+        gap: 0.5rem;
+        background-color: transparent;
+        & .admin-stack {
+          width: 100%;
+          background-color: transparent;
+          display: flex;
+          gap: 0.5rem;
+          & .admin-name {
+            width: 8rem;
+            text-align: center;
+            margin: auto;
+            font-weight: map-get($map: $font-weights, $key: "bold");
+            font-size: map-get($map: $font-sizes, $key: "sm");
+            background-color: transparent;
+          }
+        }
+      }
     }
+    & .c-div {
+      background-color: lighten($color: $SecondaryColor, $amount: 15%);
+      padding: 0.15rem 0.275rem;
+      border-radius: 0.5rem;
+      font-weight: map-get($map: $font-weights, $key: "medium");
+    }
+  }
 }
 
 .none {
-    display: none;
+  display: none;
 }
 
-
-@media screen and (min-width: 35rem) {
-    .movies {
-        & .header {
-            & .nav {
-                grid-template-columns: 15% 1fr 15%;
-                & .search {
-                    & input {
-                        width: 80%;
-                    }
-                }
-            }
+@media screen and (max-width: 64.5rem) {
+  .movies {
+    & .header {
+      & .nav {
+        grid-template-columns: 10% 1fr 6%;
+        & .search {
+          & input {
+            width: 80%;
+          }
         }
+
+        & .admin {
+          justify-content: flex-end;
+          & .down-icon {
+            position: absolute;
+            z-index: 0 !important;
+            display: flex;
+            aspect-ratio: 1;
+            width: 2.5rem;
+            top: 1rem;
+            mask: url("/nav.svg") no-repeat center / contain;
+            background-color: map-get($map: $colors, $key: "darkwhite" );
+          }
+          & .dropdown {
+            z-index: 2  !important;
+            display: flex;
+            aspect-ratio: 1/1;
+            height: 3rem;
+            opacity: 0;
+            cursor: pointer;
+          }
+
+          & .admin-stack {
+            display: none;
+
+          }
+
+          & .dropdown:checked + .admin-stack {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            width: 8rem;
+
+            background-color: $NavBGColor;
+            padding: 0.5rem 0.75rem;
+            top: 3.5rem;
+            border-radius: 0.5rem;
+            outline: 1px solid map-get($map: $colors, $key: "lightwhite");
+          }
+        }
+      }
     }
+  }
 }
 
-@media screen and (min-width: 45rem) {
-    .movies {
-        & .header {
-            & .nav {
-                grid-template-columns: 10% 1fr 10%;
-                & .search {
-                    & input {
-                        width: 55%;
-                    }
-                }
-            }
+@media screen and (max-width: 80rem) and (min-width: 64.5rem) {
+  .movies {
+    & .header {
+      & .nav {
+        grid-template-columns: 10% 1fr 25%;
+        & .search {
+          & input {
+            width: 80%;
+          }
         }
+      }
     }
+  }
 }
 
-@media screen and (min-width: 55rem) {
-    .movies {
-        & .header {
-            & .nav {
-                grid-template-columns: 8% 1fr 8%;
-                & .search {
-                    & input {
-                        width: 40%;
-                    }
-                }
-            }
+@media screen and (max-width: 100rem) and (min-width: 80rem) {
+  .movies {
+    & .header {
+      & .nav {
+        grid-template-columns: 10% 1fr 20%;
+        & .search {
+          & input {
+            width: 70%;
+          }
         }
+      }
     }
+  }
 }
