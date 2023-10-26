@@ -24,7 +24,7 @@ class API {
         return res.json()
     }
 
-    async postData(data: any, token: string,  revalidate: number = 3600) {
+    async postData(data: any, token?: string,  revalidate: number = 3600) {
         const options = {
             method: "POST",
             headers: {
