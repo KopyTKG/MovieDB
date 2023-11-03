@@ -1,35 +1,38 @@
-import '../assets/scss/index.scss';
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/react';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-
-const inter = Inter({ subsets: ['latin'] })
+import "./global.css";
+import "../assets/scss/index.scss";
+import type { Metadata } from "next";
+import { GeistSans } from "geist/font";
+import { Analytics } from "@vercel/analytics/react";
+import Verison from "../../package.json";
+import GlobalNav from "@/modules/global.navbar";
 
 export const metadata: Metadata = {
-  title: 'MovieDB',
-  description: 'Database of my plex library',
-}
+  title: "MovieDB",
+  description: "Database of my plex library",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <UserProvider>
-        <body className={inter.className}>
+      <body className={GeistSans.className}>
+        <main className="min-h-screen h-max pb-3 dark text-foreground bg-background">
+          <GlobalNav />
           {children}
-          <footer> 
-            <a href='https://thekrew.app' target='_blank'>
-              thekrew.app 
-            </a> &nbsp; &copy; &nbsp; 
+          <footer className="w-full text-center bottom-0 z-10 sticky bg-background py-2">
+            <a href="https://thekrew.app" target="_blank">
+              thekrew.app
+            </a>{" "}
+            &nbsp; &copy; &nbsp;
             {new Date(Date.now()).getFullYear()}
+            <span>&nbsp; ver: {Verison.version}</span>
           </footer>
-          <Analytics/>
-        </body>
-      </UserProvider>
+        </main>
+        <Analytics />
+      </body>
     </html>
-  )
+  );
 }

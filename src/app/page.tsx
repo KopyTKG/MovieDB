@@ -2,14 +2,12 @@
 import { useEffect, useState } from "react";
 import Movies from "@/modules/display.movies";
 import { useInView } from "react-intersection-observer";
-import Loading from "@/modules/loading";
 import JWT from "@/modules/controllers/jwt.controller";
 import { setToken } from "./actions";
-import { useUser } from "@auth0/nextjs-auth0/client";
-import HomeNav from "@/modules/nav.home";
+import { Spinner } from "@nextui-org/react";
+import SearchNavbar from "@/modules/search.navbar";
 
 export default function Page() {
-  const { user, error, isLoading } = useUser();
   const [data, setData] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
@@ -31,12 +29,6 @@ export default function Page() {
     if (inView && !loading && max != 0) {
       setPage(page + 1);
       setLoading(true);
-    } else if (selected >= max) {
-      let load: any = document.getElementById("Loading");
-      load.style.display = "None";
-    } else {
-      let load: any = document.getElementById("Loading");
-      load.style.display = "Block";
     }
   }, [page, inView, search, max]);
 
@@ -50,8 +42,13 @@ export default function Page() {
   }, [token]);
 
   return (
-    <main className="movies">
-      <HomeNav max={max} user={user} setSearch={setSearch} setPage={setPage} />
+    <>
+      <SearchNavbar
+        setPage={setPage}
+        setSearch={setSearch}
+        />
+      <div className="w-full flex flex-col items-center">
+
       <Movies
         data={data}
         setData={setData}
@@ -61,8 +58,12 @@ export default function Page() {
         search={search}
         setMax={setMax}
         token={token}
-      />
-      <Loading useRef={ref} />
-    </main>
+        />
+      <Spinner color='danger' size='lg' ref={ref} label="Loading more content"/>
+        </div>
+      </>
   );
 }
+
+
+// <HomeNav max={max} setSearch={setSearch} setPage={setPage} />
