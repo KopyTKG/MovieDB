@@ -20,18 +20,16 @@ export async function POST(req: Request) {
       });
       if (payload) {
         const cache = await redis.get(settings);
-        if(cache) {
+        if (cache) {
           return Response.json(JSON.parse(cache));
         } else {
-
-            
-            const data = await prisma.movie.findUnique({
-                where: {
-                    id: parseInt(settings),
-                },
-            });
-            await redis.set(settings, JSON.stringify(data), 'EX', 60*60*2);
-            return Response.json(data);
+          const data = await prisma.movie.findUnique({
+            where: {
+              id: parseInt(settings),
+            },
+          });
+          await redis.set(settings, JSON.stringify(data), "EX", 60 * 60 * 2);
+          return Response.json(data);
         }
       }
     } catch (e) {
@@ -41,4 +39,3 @@ export async function POST(req: Request) {
     return Response.json(e);
   }
 }
-

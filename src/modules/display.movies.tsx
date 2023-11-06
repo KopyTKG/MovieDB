@@ -15,8 +15,13 @@ export default function Movies({
 }: any) {
   const [last, setLast] = useState(search);
   useEffect(() => {
-    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`;
     if (token != "") {
+      let url = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+      if (search == "") { 
+        url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`;
+      } else {
+        url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/search`;
+      }
       const fetcher = new API(url);
       fetcher
         .postData(

@@ -46,7 +46,6 @@ export default function Page() {
           .getData(token)
           .then((raw: any) => {
             setTotal(raw);
-            console.log(raw);
           })
           .catch((e) => {
             throw e;
@@ -73,7 +72,7 @@ export default function Page() {
         setMax={setMax}
         token={token}
         />
-      <Spinner id="loader" color='danger' size='lg' ref={ref} label="Loading more content"/>
+      <Spinner color='danger' size='lg' ref={ref} label="Loading more content"/>
         </div>
       </>
   );
