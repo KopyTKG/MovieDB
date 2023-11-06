@@ -22,7 +22,6 @@ export default function Movies({ data, page, setData, search }: any) {
 
   useEffect(() => {
     if (token != "") {
-      console.log(token);
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}`;
       if (search == "") {
         url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`;
