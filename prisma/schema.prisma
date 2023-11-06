@@ -17,33 +17,8 @@ model Movie {
   quality String
   description String?
   rating Float?
+  posters Json[]
+  backdrops Json[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  posters Poster[]
-  backdrops Backdrop[]
-}
-
-model Poster {
-  id String @id @default(uuid()) @map("_id")
-  src String
-  width Int? @default(0)
-  height Int? @default(0)
-  movieId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  movie Movie @relation(fields: [movieId], references: [id])
-}
-
-model Backdrop {
-  id String @id @default(uuid()) @map("_id")
-  src String
-  width Int? @default(0)
-  height Int? @default(0)
-  movieId Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  
-  movie Movie @relation(fields: [movieId], references: [id])
 }

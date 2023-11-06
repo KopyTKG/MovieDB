@@ -31,10 +31,6 @@ export async function POST(
                     take: settings.limit,
                     orderBy: {
                         title: 'asc'
-                    },
-                    include: {
-                        posters: true,
-                        backdrops: true
                     }
                 });
                 return Response.json(data)
