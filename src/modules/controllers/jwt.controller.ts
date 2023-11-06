@@ -9,6 +9,7 @@ class JWT {
     }
 
     async getToken() {
+        console.log(this.key)
         const secret = await jose.importPKCS8(this.key, this.alg);
         const jwt = await new jose.SignJWT({'urn:thekrew:claim': true})
             .setProtectedHeader({ alg: this.alg })
