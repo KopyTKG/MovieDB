@@ -27,8 +27,6 @@ export async function POST(
                             mode: 'insensitive',
                         },
                     },
-                    skip: settings.page * settings.limit,
-                    take: settings.limit,
                     orderBy: {
                         title: 'asc'
                     }

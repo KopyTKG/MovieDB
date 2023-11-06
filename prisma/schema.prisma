@@ -12,6 +12,7 @@ datasource db {
 
 model Movie {
   id Int @id @map("_id")
+  imdb_id String
   title String
   year Int
   quality String

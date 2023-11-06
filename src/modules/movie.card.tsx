@@ -6,6 +6,7 @@ import {
   Image,
   Link,
 } from "@nextui-org/react";
+import { Suspense } from "react";
 
 export default function Movie(props: {
   src: string;
@@ -17,12 +18,16 @@ export default function Movie(props: {
   return (
     <Link href={`/${props.id}`}>
       <Card className="relative" isHoverable isFooterBlurred radius="lg">
+        <Suspense fallback={<div>Loading...</div>}>
         <Image
           alt="Movie poster"
           className="object-cover z-1"
           width={300}
           src={props.src}
-        />
+          fallbackSrc=""
+          loading="lazy"
+          />
+        </Suspense>
 
         <CardHeader className="bg-black flex justify-center align-center border-white/20 border-1 overflow-hidden py-1  absolute before:rounded-xl rounded-large top-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-2 text-center">
           <span>{props.title}</span>

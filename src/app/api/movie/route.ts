@@ -26,7 +26,7 @@ export async function POST(req: Request) {
           const data = await prisma.movie.findUnique({
             where: {
               id: parseInt(settings),
-            },
+            }
           });
           await redis.set(settings, JSON.stringify(data), "EX", 60 * 60 * 2);
           return Response.json(data);

@@ -22,7 +22,7 @@ export default function RootLayout({
         <main className="min-h-screen h-max pb-3 dark text-foreground bg-background">
           <GlobalNav />
           {children}
-          <footer className="w-full text-center bottom-0 z-10 sticky bg-background py-2">
+          <footer className="w-full text-center bottom-0 z-10 fixed bg-background py-2">
             <a href="https://thekrew.app" target="_blank">
               thekrew.app
             </a>{" "}
