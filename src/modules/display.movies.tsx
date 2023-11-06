@@ -13,7 +13,6 @@ export default function Movies({ data, page, setData, search }: any) {
       .getToken()
       .then((data) => {
         setToken(data);
-        console.log(data);
       })
       .catch((e) => {
         throw e;
