@@ -13,7 +13,12 @@ export default function Page() {
     <>
       <SearchNavbar setPage={setPage} setSearch={setSearch} />
       <div className="min-h-screen w-full flex flex-col items-center">
-        <Movies data={data} setData={setData} page={page} search={search} />
+        <Movies
+          data={data}
+          setData={setData}
+          page={page}
+          search={search}
+        />
       </div>
       <Paging setPage={setPage} page={page} />
     </>
