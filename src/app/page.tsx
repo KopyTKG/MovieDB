@@ -25,7 +25,7 @@ export default function Page() {
         });
       })
       .catch((e) => {
-        throw e;
+        setData([]);
       });
   }, []);
 
