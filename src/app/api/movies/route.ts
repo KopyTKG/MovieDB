@@ -2,7 +2,7 @@ import prisma from '../../../../prisma/client'
 import JWT from '@/modules/controllers/jwt.controller';
 import * as jose from 'jose'
 
-
+export const dynamic = 'force-dynamic'
 
 export async function POST(
     req: Request,
