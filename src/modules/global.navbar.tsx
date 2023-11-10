@@ -5,7 +5,7 @@ import {
   NavbarBrand,
   Link,
 } from "@nextui-org/react";
-import { FilmIcon, HomeIcon } from "@heroicons/react/24/outline";
+import { Bars4Icon, FilmIcon, HomeIcon } from "@heroicons/react/24/outline";
 
 export default function NavbarComponent() {
   return (
@@ -15,6 +15,12 @@ export default function NavbarComponent() {
           <FilmIcon className="w-8" />
           The Movie Database
         </NavbarBrand>
+        <NavbarItem>
+          <Link href="/collection" color="primary" className="flex gap-1">
+            <Bars4Icon className="w-6" />
+            Collection
+          </Link>
+        </NavbarItem>
         <NavbarItem>
           <Link href="/" color="primary" className="flex gap-1">
             <HomeIcon className="w-6" />

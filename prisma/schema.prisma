@@ -18,6 +18,7 @@ model Movie {
   quality String
   description String?
   rating Float?
+  tagline String
   posters Json[]
   backdrops Json[]
   createdAt DateTime @default(now())
