@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import API from "@/modules/controllers/api.controller";
 import JWT from "@/modules/controllers/jwt.controller";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 import { Card, CardFooter, CardHeader, Chip, Image, Link } from "@nextui-org/react";
 
 export default function Page() {
-  const [data, setData] = useState<string[]>([]);
+  const [data, setData] = useState<any[]>([]);
 
   const jwt = new JWT();
 
@@ -25,7 +25,7 @@ export default function Page() {
         });
       })
       .catch((e) => {
-        throw e;
+        setData([]);
       });
   }, []);
 
@@ -39,6 +39,7 @@ export default function Page() {
           freeMode={true}
           pagination={{ clickable: true }}
         >
+          <Suspense fallback={<div>Loading...</div>}>
           {data.map((movie: any) => {
             return (
               <SwiperSlide key={movie.id}>
@@ -68,6 +69,7 @@ export default function Page() {
               </SwiperSlide>
             );
           })}
+          </Suspense>
         </Swiper>
       </div>
     </>
