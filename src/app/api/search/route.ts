@@ -3,6 +3,8 @@ import JWT from "@/modules/controllers/jwt.controller";
 import redis from "@/lib/redis";
 import * as jose from "jose";
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(req: Request) {
   try {
     const headers = req.headers;
