@@ -18,7 +18,7 @@ Unsupported version have nolonger functional parts or security issues.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 3.3.x   | :white_check_mark: |
-| > 3.2.0 | :white_check_mark: |
-| < 3.1.9 | :x:                |
+| 3.4.x   | :white_check_mark: |
+| 3.3.0 | :white_check_mark: |
+| < 3.3.0 | :x:                |
 
