@@ -1,6 +1,7 @@
 import Latest from "@/modules/latest.display";
 
 export default function Home() {
+
   return (
     <>
       <div className="container mx-auto">
