@@ -16,36 +16,48 @@ import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import ErrorPage from "./error.page";
 
 export default function Latest() {
+  const [error, setError] = useState<Error | null>(null);
+
   const [data, setData] = useState<any[]>([]);
   const [token, setToken] = useState<any>("");
   const [loading, setLoading] = useState(false);
   const jwt = new JWT();
 
   useEffect(() => {
-    jwt
-      .getToken()
-      .then((data) => {
-        setToken(data);
-      })
-      .catch((e) => {
-        throw e;
-      });
+    const getToken = async () => {
+      try {
+        const tkn = await jwt.getToken();
+        setToken(tkn);
+      } catch (e: any) {
+        setError(e);
+      }
+    }
+
+    getToken();
   }, [token]);
 
   useEffect(() => {
     if (token !== "" && !loading) {
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest`;
-
-      const fetcher = new API(url);
-      fetcher.getData(token).then((data) => {
-        setLoading(true);
-        setData(data);
-      });
+      try {
+        
+        let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest`;
+        
+        const fetcher = new API(url);
+        fetcher.getData(token).then((data) => {
+          setLoading(true);
+          setData(data);
+        });
+      } catch (e: any) {
+        setError(e);
+      }
     }
   }, [token]);
-  if (data) {
+  if (error) {
+    return <ErrorPage error={error} />
+  } else {
     return (
       <>
         <Swiper
