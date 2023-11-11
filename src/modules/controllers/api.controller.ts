@@ -16,10 +16,10 @@ class API {
         const url = `${this.url}`;
         const res = await fetch(url, options);
         if (res.status == 501) {
-            return res
+            return res;
         }
         if (!res.ok) {
-            throw new Error("Faild to fetch data")
+            return res;
         }   
         return res.json()
     }

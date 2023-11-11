@@ -1,6 +1,6 @@
 {
   "name": "moviedb",
-  "version": "3.4.7",
+  "version": "3.4.9",
   "private": true,
   "type": "commonjs",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@nextui-org/react": "^2.2.8",
+    "@nextui-org/react": "^2.2.9",
     "@prisma/client": "^5.5.2",
     "@vercel/analytics": "^1.1.1",
     "eslint-config-next": "^14.0.2",

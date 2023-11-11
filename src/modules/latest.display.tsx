@@ -7,57 +7,88 @@ import {
   Image,
   Link,
 } from "@nextui-org/react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import API from "@/modules/controllers/api.controller";
 import JWT from "@/modules/controllers/jwt.controller";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import ErrorPage from "./error.page";
 
 export default function Latest() {
+  const [error, setError] = useState<Error | null>(null);
+
   const [data, setData] = useState<any[]>([]);
   const [token, setToken] = useState<any>("");
   const [loading, setLoading] = useState(false);
   const jwt = new JWT();
 
   useEffect(() => {
-    jwt
-      .getToken()
-      .then((data) => {
-        setToken(data);
-      })
-      .catch((e) => {
-        throw e;
-      });
+    const getToken = async () => {
+      try {
+        const tkn = await jwt.getToken();
+        setToken(tkn);
+      } catch (e: any) {
+        setError(e);
+      }
+    }
+
+    getToken();
   }, [token]);
 
   useEffect(() => {
     if (token !== "" && !loading) {
-      let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest`;
-
-      const fetcher = new API(url);
-      fetcher.getData(token).then((data) => {
-        setLoading(true);
-        setData(data);
-      });
+      try {
+        
+        let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/latest`;
+        
+        const fetcher = new API(url);
+        fetcher.getData(token).then((data) => {
+          setLoading(true);
+          setData(data);
+        });
+      } catch (e: any) {
+        setError(e);
+      }
     }
   }, [token]);
-  if (data) {
+  if (error) {
+    return <ErrorPage error={error} />
+  } else {
     return (
       <>
         <Swiper
-          slidesPerView={5}
-          spaceBetween={30}
+          slidesPerView={1}
+          spaceBetween={10}
           freeMode={true}
-          pagination={{ clickable: true }}
+          pagination={{
+            clickable: true,
+          }}
+          breakpoints={{
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 50,
+            },
+            1280: {
+              slidesPerView: 5,
+              spaceBetween: 50,
+            }
+          }}
+
+          modules={[Pagination]}
         >
           {data.map((movie: any) => {
             return (
               <SwiperSlide key={movie.id}>
-                <Link href={`/${movie.id}`}>
-                  <Card isFooterBlurred>
+                <Link href={`/${movie.id}`} className="flex justify-center">
+                  <Card isFooterBlurred className="w-max">
                     <Image
                       className="object-cover z-1"
                       alt="Movie poster"
@@ -85,6 +116,7 @@ export default function Latest() {
                   </Card>
                 </Link>
               </SwiperSlide>
+
             );
           })}
         </Swiper>

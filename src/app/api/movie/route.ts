@@ -17,6 +17,10 @@ export async function POST(req: Request) {
     const secret = await jwt.getPublic();
 
     try {
+      console.log(token);
+      console.log(secret);
+
+
       const { payload, protectedHeader } = await jose.jwtVerify(token, secret, {
         issuer: "urn:thekrew:issuer",
         audience: "urn:thekrew:audience",
@@ -31,8 +35,12 @@ export async function POST(req: Request) {
               id: parseInt(settings),
             }
           });
-          await redis.set(settings, JSON.stringify(data), "EX", 60 * 60 * 2);
-          return Response.json(data);
+          if (data) {
+            await redis.set(settings, JSON.stringify(data), "EX", 60 * 60 * 2);
+            return Response.json(data);
+          } else {
+            return Response.json(data);            
+          }
         }
       }
     } catch (e) {
