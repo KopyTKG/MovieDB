@@ -22,22 +22,53 @@ export async function POST(req: Request) {
       });
       if (payload) {
         const search = (settings.search).toLowerCase();
-        const cache = await redis.get(search);
+        const genre = settings.genre
+        const cache = await redis.get(search? search : `g:${genre.toString()}`);
         if (cache) {
           return Response.json(JSON.parse(cache));
         } else {
-          const data = await prisma.movie.findMany({
-            where: {
-              title: {
-                contains: settings.search,
-                mode: "insensitive",
+          let data = null;
+          if(search != "" && genre == '' ) {
+            data = await prisma.movie.findMany({
+              where: {
+                title:  {
+                  contains: search,
+                  mode: 'insensitive'
+                }
               },
-            },
-            orderBy: {
-              title: "asc",
-            },
-          });
-          await redis.set(search, JSON.stringify(data), "EX", 60 * 60 * 2);
+              orderBy: {
+                title: "asc",
+              },
+            })
+          } else if(search == "" && genre != '') {
+            data = await prisma.movie.findMany({
+              where: {
+                genres: {
+                  has: genre,
+                },
+              },
+              orderBy: {
+                title: "asc",
+              },
+            })
+          } else {
+            data = await prisma.movie.findMany({
+              where: {
+                genres: {
+                  has: genre
+                },
+                title:  {
+                  contains: search,
+                  mode: 'insensitive'
+                },
+                
+              },
+              orderBy: {
+                title: "asc",
+              },
+            })
+          }
+          await redis.set(search? search : `g:${genre.toString()}`, JSON.stringify(data), "EX", 60 * 60 * 2);
           return Response.json(data);
         }
       }

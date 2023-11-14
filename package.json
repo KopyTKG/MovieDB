@@ -1,6 +1,7 @@
 {
   "name": "moviedb",
-  "version": "3.4.9",
+  "version": "3.5.1",
+  "description": "Movie Database",
   "private": true,
   "type": "commonjs",
   "scripts": {

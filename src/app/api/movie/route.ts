@@ -2,6 +2,7 @@ import redis from "@/lib/redis";
 import prisma from "../../../../prisma/client";
 import JWT from "@/modules/controllers/jwt.controller";
 import * as jose from "jose";
+import { ST } from "next/dist/shared/lib/utils";
 
 export const dynamic = 'force-dynamic'
 
@@ -17,10 +18,6 @@ export async function POST(req: Request) {
     const secret = await jwt.getPublic();
 
     try {
-      console.log(token);
-      console.log(secret);
-
-
       const { payload, protectedHeader } = await jose.jwtVerify(token, secret, {
         issuer: "urn:thekrew:issuer",
         audience: "urn:thekrew:audience",
@@ -30,16 +27,16 @@ export async function POST(req: Request) {
         if (cache) {
           return Response.json(JSON.parse(cache));
         } else {
-          const data = await prisma.movie.findUnique({
+          let raw = await prisma.movie.findUnique({
             where: {
               id: parseInt(settings),
             }
           });
-          if (data) {
-            await redis.set(settings, JSON.stringify(data), "EX", 60 * 60 * 2);
-            return Response.json(data);
+          if (raw) {
+            await redis.set(settings, JSON.stringify(raw), "EX", 60 * 60 * 2);
+            return Response.json(raw);
           } else {
-            return Response.json(data);            
+            return Response.json(raw);            
           }
         }
       }
