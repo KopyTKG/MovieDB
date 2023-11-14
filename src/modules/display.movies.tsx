@@ -6,7 +6,7 @@ import JWT from "./controllers/jwt.controller";
 import { useSearchParams } from "next/navigation";
 import ErrorPage from "./error.page";
 
-export default function Movies({ data, page, setData, search }: any) {
+export default function Movies({ data, page, setData }: any) {
   const [error, setError] = useState<Error | null>(null);
   const [token, setToken] = useState<any>("");
   const [loading, setLoading] = useState(false);
@@ -35,19 +35,26 @@ export default function Movies({ data, page, setData, search }: any) {
       
   }, [token]);
 
-  const fetchData = async (url: string, search: string) => {
+  let query = {
+    search: "",
+    genre: 0,
+  }
+  // fetch data from api -> Search path
+  const fetchData = async (url: string, query: any) => {
     try {
+      console.log(query)
       const fetcher = new API(url);
       const raw = await fetcher.postData(
         {
           page: page,
           limit: 10,
-          search: search,
+          search: query.search,
+          genre: query.genre
         },
       token);
       
       let parsed: string[] = [];
-      if (search == "") {
+      if (query.search == "" && query.genre == "") {
         parsed = [...data, ...raw];
       } else {
         parsed = [...raw];
@@ -58,27 +65,30 @@ export default function Movies({ data, page, setData, search }: any) {
       setError(e);
     }
   }
+
+
     useEffect(() => {
-  
     
     if (token != "" && !loading && page < max) {
       const params = new URLSearchParams(searchParams.toString());
-      const search = params.get('q') || ''
+      query.search = params.get('q') || ''
+      query.genre = Number.parseInt(params.get('g') || '') || 0
 
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-      if (search == "") {
-        url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`;
+
+      if (query.search != "" || query.genre != 0) {
+        url = `${url}/api/search`;
       } else {
-        url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/search`;
+        url = `${url}/api/movies`;
       }
 
-      fetchData(url, search)
+      fetchData(url, query )
       .catch((e) => { 
         setError(e);
       })
       
     }
-  }, [page, search, token, setLoading, max]);
+  }, [page, query, token, setLoading, max]);
 
   if (error) {
     return <ErrorPage error={error} />
