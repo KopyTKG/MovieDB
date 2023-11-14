@@ -13,7 +13,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@nextui-org/react": "^2.2.9",
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.6.0",
     "@vercel/analytics": "^1.1.1",
     "eslint-config-next": "^14.0.2",
     "framer-motion": "^10.16.5",
@@ -36,7 +36,7 @@
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "postcss": "^8.4.31",
-    "prisma": "^5.5.2",
+    "prisma": "^5.6.0",
     "sass": "^1.69.5",
     "tailwindcss": "^3.3.5",
     "ts-node": "^10.9.1",
