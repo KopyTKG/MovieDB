@@ -13,7 +13,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@nextui-org/react": "^2.2.9",
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.6.0",
     "@vercel/analytics": "^1.1.1",
     "eslint-config-next": "^14.0.2",
     "framer-motion": "^10.16.5",
