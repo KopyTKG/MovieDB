@@ -45,7 +45,7 @@ export default function Category() {
     <>
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center gap-10 p-10">
       {genres.map((genre: any) => (
-          <Link href={`/collection?g=${genre.id}`} key={genre.id}>
+          <Link href={`/collection?g=${genre.name}`} key={genre.id}>
           <Card>
             <CardBody className="w-full flex items-center py-20">
               <span className="text-2xl font-bold">{genre.name}</span>

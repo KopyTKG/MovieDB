@@ -25,7 +25,7 @@ model Movie {
   backdrops   MovieBackdrops[]
   createdAt   DateTime         @db.Date
   description String
-  genres      Int[]
+  genres      String[]
   imdb_id     String
   posters     MoviePosters[]
   quality     String
