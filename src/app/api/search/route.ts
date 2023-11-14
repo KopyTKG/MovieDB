@@ -28,7 +28,7 @@ export async function POST(req: Request) {
           return Response.json(JSON.parse(cache));
         } else {
           let data = null;
-          if(search != "" && genre == 0 ) {
+          if(search != "" && genre == '' ) {
             data = await prisma.movie.findMany({
               where: {
                 title:  {
@@ -40,12 +40,12 @@ export async function POST(req: Request) {
                 title: "asc",
               },
             })
-          } else if(search == "" && genre > 0) {
+          } else if(search == "" && genre != '') {
             data = await prisma.movie.findMany({
               where: {
                 genres: {
-                  has: genre
-                }
+                  has: genre,
+                },
               },
               orderBy: {
                 title: "asc",
@@ -68,7 +68,6 @@ export async function POST(req: Request) {
               },
             })
           }
-          console.log(data)
           await redis.set(search? search : `g:${genre.toString()}`, JSON.stringify(data), "EX", 60 * 60 * 2);
           return Response.json(data);
         }

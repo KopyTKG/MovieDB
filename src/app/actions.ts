@@ -21,7 +21,7 @@ export async function getToken() {
         if(cookies().has('jwt')) {
             return cookies().get('jwt')
         } else {
-            console.log("Token not set")
+            throw new Error("Token not set");
         }
     } catch (e) {
         throw e;

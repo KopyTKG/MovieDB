@@ -3,6 +3,7 @@ import API from "@/modules/controllers/api.controller";
 import { useState, useEffect, Suspense } from "react";
 import JWT from "@/modules/controllers/jwt.controller";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -31,6 +32,7 @@ export default function Page({ params }: { params: { id: number } }) {
     description: "",
     backdrops: [{ src: "" }],
     posters: [{ src: "" }],
+    genres: [],
     imdb_id: "",
   });
   const jwt = new JWT();
@@ -38,14 +40,8 @@ export default function Page({ params }: { params: { id: number } }) {
   useEffect(() => {
     const getData = async () => {
       const tkn = await jwt.getToken();
-      const fetcher = new API(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`
-      )
-
+      const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`);
       const raw = await fetcher.postData(params.id, tkn);
-        
-      console.log(tkn);
-
       if (raw === null) {
         setError(new NotFound());
       } else if (typeof raw === "string") {
@@ -55,19 +51,15 @@ export default function Page({ params }: { params: { id: number } }) {
       }
     };
 
-    getData()
-    .catch((e) => {
+    getData().catch((e) => {
       throw e;
     });
-
-      
   }, []);
 
   if (error) {
-    return <ErrorPage error={error} />
+    return <ErrorPage error={error} />;
   } else {
-
-  return (
+    return (
       <div className="w-full h-[calc(100vh-8rem)] xl:px-[25rem] ">
         <Suspense fallback={<div>Loading...</div>}>
           <Card className="relative" isFooterBlurred radius="lg">
@@ -104,14 +96,15 @@ export default function Page({ params }: { params: { id: number } }) {
                         size="lg"
                         value={Number((data.rating * 10).toPrecision(2))}
                         color={
-                          Number((data.rating * 10).toPrecision(2)) > 75
+                          Number((data.rating * 10).toPrecision(2)) >= 75
                             ? "success"
-                            : Number((data.rating * 10).toPrecision(2)) > 50
+                            : Number((data.rating * 10).toPrecision(2)) >= 50
                             ? "warning"
                             : "danger"
                         }
                         formatOptions={{ style: "unit", unit: "percent" }}
                         showValueLabel={true}
+                        className=""
                       />
                     </TableCell>
                   </TableRow>
@@ -127,6 +120,25 @@ export default function Page({ params }: { params: { id: number } }) {
                     <TableCell>description</TableCell>
                     <TableCell className="text-justify w-[80%]">
                       {data.description}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Genres</TableCell>
+                    <TableCell>
+                      <div className="w-full flex flex-row gap-1">
+                      {data.genres.map((genre) => {
+                        return (
+                            <Button 
+                            as={Link}
+                            key={genre}  
+                            color="secondary"
+                            href={`/collection?g=${genre}`}
+                            >
+                              {genre}
+                            </Button>
+                        );
+                      })}
+                      </div>
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -153,8 +165,6 @@ export default function Page({ params }: { params: { id: number } }) {
           </Card>
         </Suspense>
       </div>
-  );
-}
-
-
+    );
+  }
 }

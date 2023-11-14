@@ -37,7 +37,7 @@ export default function Movies({ data, page, setData }: any) {
 
   let query = {
     search: "",
-    genre: 0,
+    genre: '',
   }
   // fetch data from api -> Search path
   const fetchData = async (url: string, query: any) => {
@@ -72,11 +72,9 @@ export default function Movies({ data, page, setData }: any) {
     if (token != "" && !loading && page < max) {
       const params = new URLSearchParams(searchParams.toString());
       query.search = params.get('q') || ''
-      query.genre = Number.parseInt(params.get('g') || '') || 0
-
+      query.genre = params.get('g') || '' 
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-
-      if (query.search != "" || query.genre != 0) {
+      if (query.search != "" || query.genre != '') {
         url = `${url}/api/search`;
       } else {
         url = `${url}/api/movies`;
