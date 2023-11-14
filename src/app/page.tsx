@@ -1,5 +1,6 @@
 import Category from "@/modules/category.display";
 import Latest from "@/modules/latest.display";
+import { Divider } from "@nextui-org/react";
 
 export default function Home() {
 
@@ -7,7 +8,11 @@ export default function Home() {
     <>
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold underline mb-5">Latest addition</h1>
+        <Divider className="mb-5"/>
         <Latest/>
+
+        <h1 className="text-3xl font-bold underline my-5">Genres</h1>
+        <Divider/>
         <Category/>
       </div>
     </>

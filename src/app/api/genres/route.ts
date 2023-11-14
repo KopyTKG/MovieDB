@@ -25,15 +25,11 @@ export async function GET(req: Request) {
           return Response.json(JSON.parse(cache));
         } else {
           const data = await prisma.genres.findMany({
-            take: 10,
-            select: {
-                name: true,
-                id: true
-            },
             orderBy: {
               name: 'asc'
             },
           });
+
           await redis.set('genres', JSON.stringify(data), "EX", 60 * 60 * 2);
           return Response.json(data);
         }
