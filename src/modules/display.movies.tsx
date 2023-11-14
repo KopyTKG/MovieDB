@@ -42,6 +42,7 @@ export default function Movies({ data, page, setData }: any) {
   // fetch data from api -> Search path
   const fetchData = async (url: string, query: any) => {
     try {
+      console.log(query)
       const fetcher = new API(url);
       const raw = await fetcher.postData(
         {
@@ -72,9 +73,7 @@ export default function Movies({ data, page, setData }: any) {
       const params = new URLSearchParams(searchParams.toString());
       query.search = params.get('q') || ''
       query.genre = params.get('g') || '' 
-
       let url = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-
       if (query.search != "" || query.genre != '') {
         url = `${url}/api/search`;
       } else {
