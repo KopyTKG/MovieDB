@@ -16,8 +16,10 @@ type MoviePosters {
 }
 
 model Genres {
-  id   Int    @id @map("_id")
-  name String
+  id       Int    @id @map("_id")
+  backdrop String
+  color    String
+  name     String
 }
 
 model Movie {
@@ -27,6 +29,7 @@ model Movie {
   description String
   genres      String[]
   imdb_id     String
+  language    String
   posters     MoviePosters[]
   quality     String
   rating      Float
