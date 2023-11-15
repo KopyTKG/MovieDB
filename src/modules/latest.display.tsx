@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import API from "@/modules/controllers/api.controller";
 import JWT from "@/modules/controllers/jwt.controller";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
