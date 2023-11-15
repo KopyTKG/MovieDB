@@ -88,7 +88,7 @@ export default function Page({ params }: { params: { id: number } }) {
                 </TableHeader>
                 <TableBody className="h-full">
                   <TableRow>
-                    <TableCell>TMDB rationg:</TableCell>
+                    <TableCell>TMDB rating:</TableCell>
                     <TableCell>
                       <CircularProgress
                         size="lg"
