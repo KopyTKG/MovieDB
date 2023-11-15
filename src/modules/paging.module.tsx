@@ -5,7 +5,7 @@ import { useEffect, createContext } from "react";
 
 export default function Paging(props: any) {
   const { ref, inView, entry } = useInView({
-    threshold: 0.2,
+    threshold: 1,
     initialInView: false
   });
 
