@@ -61,7 +61,6 @@ export default function Page({ params }: { params: { id: number } }) {
   } else {
     return (
       <div className="w-full h-full mb-10">
-        <h1 className="text-4xl font-bold mb-1 px-2">{data.title}</h1>
         <Divider className="mb-2" />
         <div className="container mx-auto flex flex-col xl:flex-row">
           <div className="w-full py-2 flex justify-center xl:justify-start">
@@ -74,6 +73,8 @@ export default function Page({ params }: { params: { id: number } }) {
               className="xl:w-[80%]"
             />
           </div>
+          <div>
+              <h1 className="text-4xl font-bold m-3 px-2 text-center xl:text-left">{data.title}</h1>
           <Table
                 hideHeader
                 isStriped
@@ -115,7 +116,7 @@ export default function Page({ params }: { params: { id: number } }) {
                   </TableRow>
                   <TableRow>
                     <TableCell>description</TableCell>
-                    <TableCell className="text-justify w-[80%]">
+                    <TableCell className="text-wrap w-[80%]">
                       {data.description}
                     </TableCell>
                   </TableRow>
@@ -151,6 +152,7 @@ export default function Page({ params }: { params: { id: number } }) {
                   </TableRow>
                 </TableBody>
               </Table>
+        </div>
         </div>
 
         <Suspense fallback={<div>Loading...</div>}>

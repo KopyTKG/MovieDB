@@ -29,6 +29,7 @@ model Movie {
   description String
   genres      String[]
   imdb_id     String
+  language    String
   posters     MoviePosters[]
   quality     String
   rating      Float
