@@ -60,24 +60,21 @@ export default function Page({ params }: { params: { id: number } }) {
     return <ErrorPage error={error} />;
   } else {
     return (
-      <div className="w-full h-[calc(100vh-8rem)] xl:px-[25rem] ">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Card className="relative" isFooterBlurred radius="lg">
-            <CardHeader className="text-2xl font-bold">{data.title}</CardHeader>
-            <Divider />
-            <CardBody className="grid lg:grid-cols-[30%_60%] grid-cols-1 gap-4 w-full">
-              <div className="w-full flex justify-center">
-                <Image
-                  alt="Movie poster"
-                  src={
-                    "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
-                    data.posters[0].src
-                  }
-                  className="h-[30rem] xs:h-[20rem]"
-                  loading="lazy"
-                />
-              </div>
-              <Table
+      <div className="w-full h-full mb-10">
+        <h1 className="text-4xl font-bold mb-1 px-2">{data.title}</h1>
+        <Divider className="mb-2" />
+        <div className="container mx-auto flex flex-col xl:flex-row">
+          <div className="w-full py-2 flex justify-center xl:justify-start">
+            <Image
+              alt="Movie poster"
+              src={
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
+                data.posters[0].src
+              }
+              className="xl:w-[80%]"
+            />
+          </div>
+          <Table
                 hideHeader
                 isStriped
                 className="justify-center"
@@ -126,18 +123,18 @@ export default function Page({ params }: { params: { id: number } }) {
                     <TableCell>Genres</TableCell>
                     <TableCell>
                       <div className="w-full flex flex-row gap-1">
-                      {data.genres.map((genre) => {
-                        return (
-                            <Button 
-                            as={Link}
-                            key={genre}  
-                            color="secondary"
-                            href={`/collection?g=${genre}`}
+                        {data.genres.map((genre) => {
+                          return (
+                            <Button
+                              as={Link}
+                              key={genre}
+                              color="secondary"
+                              href={`/collection?g=${genre}`}
                             >
                               {genre}
                             </Button>
-                        );
-                      })}
+                          );
+                        })}
                       </div>
                     </TableCell>
                   </TableRow>
@@ -154,15 +151,10 @@ export default function Page({ params }: { params: { id: number } }) {
                   </TableRow>
                 </TableBody>
               </Table>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              Images providet by &nbsp;
-              <Link color="primary" href="https://themoviedb.org">
-                themoviedb.org
-              </Link>
-            </CardFooter>
-          </Card>
+        </div>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          
         </Suspense>
       </div>
     );
