@@ -42,7 +42,7 @@ export default function NavbarComponent() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
       </NavbarContent>
-      <NavbarMenu className="w-full flex items-center bg-black/60 gap-5">
+      <NavbarMenu className="w-full flex items-center bg-black/60 gap-5 z-50">
       <NavbarMenuItem>
         <Link href="/" color="primary" className="flex gap-1  text-xl">
             <HomeIcon className="w-10" />
