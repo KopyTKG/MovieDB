@@ -8,6 +8,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  Divider,
 } from "@nextui-org/react";
 import { useState } from "react";
 import { Bars4Icon, FilmIcon, HomeIcon } from "@heroicons/react/24/outline";
@@ -41,19 +42,20 @@ export default function NavbarComponent() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
         />
       </NavbarContent>
-      <NavbarMenu className="w-full flex items-center">
+      <NavbarMenu className="w-full flex items-center bg-black/60 gap-5">
+      <NavbarMenuItem>
+        <Link href="/" color="primary" className="flex gap-1  text-xl">
+            <HomeIcon className="w-10" />
+            Home
+          </Link>
+        </NavbarMenuItem>
         <NavbarMenuItem>
           <Link href="/collection" color="primary" className="flex gap-1 text-xl">
             <Bars4Icon className="w-10" />
             Collection
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
-        <Link href="/" color="primary" className="flex gap-1  text-xl">
-            <HomeIcon className="w-10" />
-            Home
-          </Link>
-        </NavbarMenuItem>
+        
       </NavbarMenu>
     </Navbar>
   );
