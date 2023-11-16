@@ -3,6 +3,7 @@ import API from "@/modules/controllers/api.controller";
 import { useState, useEffect, Suspense } from "react";
 import JWT from "@/modules/controllers/jwt.controller";
 import {
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -31,6 +32,7 @@ export default function Page({ params }: { params: { id: number } }) {
     description: "",
     backdrops: [{ src: "" }],
     posters: [{ src: "" }],
+    genres: [],
     imdb_id: "",
   });
   const jwt = new JWT();
@@ -38,14 +40,8 @@ export default function Page({ params }: { params: { id: number } }) {
   useEffect(() => {
     const getData = async () => {
       const tkn = await jwt.getToken();
-      const fetcher = new API(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`
-      )
-
+      const fetcher = new API(`${process.env.NEXT_PUBLIC_BASE_URL}/api/movie`);
       const raw = await fetcher.postData(params.id, tkn);
-        
-      console.log(tkn);
-
       if (raw === null) {
         setError(new NotFound());
       } else if (typeof raw === "string") {
@@ -55,37 +51,31 @@ export default function Page({ params }: { params: { id: number } }) {
       }
     };
 
-    getData()
-    .catch((e) => {
+    getData().catch((e) => {
       throw e;
     });
-
-      
   }, []);
 
   if (error) {
-    return <ErrorPage error={error} />
+    return <ErrorPage error={error} />;
   } else {
-
-  return (
-      <div className="w-full h-[calc(100vh-8rem)] xl:px-[25rem] ">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Card className="relative" isFooterBlurred radius="lg">
-            <CardHeader className="text-2xl font-bold">{data.title}</CardHeader>
-            <Divider />
-            <CardBody className="grid lg:grid-cols-[30%_60%] grid-cols-1 gap-4 w-full">
-              <div className="w-full flex justify-center">
-                <Image
-                  alt="Movie poster"
-                  src={
-                    "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
-                    data.posters[0].src
-                  }
-                  className="h-[30rem] xs:h-[20rem]"
-                  loading="lazy"
-                />
-              </div>
-              <Table
+    return (
+      <div className="w-full h-full mb-10">
+        <Divider className="mb-2" />
+        <div className="container mx-auto flex flex-col xl:items-center xl:flex-row">
+          <div className="w-max py-2 flex justify-center xl:justify-start">
+            <Image
+              alt="Movie poster"
+              src={
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
+                data.posters[0].src
+              }
+              className="xl:w-[80%]"
+            />
+          </div>
+          <div>
+              <h1 className="text-4xl font-bold m-3 px-2 text-center xl:text-left">{data.title}</h1>
+          <Table
                 hideHeader
                 isStriped
                 className="justify-center"
@@ -98,20 +88,21 @@ export default function Page({ params }: { params: { id: number } }) {
                 </TableHeader>
                 <TableBody className="h-full">
                   <TableRow>
-                    <TableCell>TMDB rationg:</TableCell>
+                    <TableCell>TMDB rating:</TableCell>
                     <TableCell>
                       <CircularProgress
                         size="lg"
                         value={Number((data.rating * 10).toPrecision(2))}
                         color={
-                          Number((data.rating * 10).toPrecision(2)) > 75
+                          Number((data.rating * 10).toPrecision(2)) >= 75
                             ? "success"
-                            : Number((data.rating * 10).toPrecision(2)) > 50
+                            : Number((data.rating * 10).toPrecision(2)) >= 50
                             ? "warning"
                             : "danger"
                         }
                         formatOptions={{ style: "unit", unit: "percent" }}
                         showValueLabel={true}
+                        className=""
                       />
                     </TableCell>
                   </TableRow>
@@ -125,8 +116,27 @@ export default function Page({ params }: { params: { id: number } }) {
                   </TableRow>
                   <TableRow>
                     <TableCell>description</TableCell>
-                    <TableCell className="text-justify w-[80%]">
+                    <TableCell className="text-wrap w-[80%]">
                       {data.description}
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Genres</TableCell>
+                    <TableCell>
+                      <div className="w-full flex flex-row gap-1">
+                        {data.genres.map((genre) => {
+                          return (
+                            <Button
+                              as={Link}
+                              key={genre}
+                              color="secondary"
+                              href={`/collection?g=${genre}`}
+                            >
+                              {genre}
+                            </Button>
+                          );
+                        })}
+                      </div>
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -142,19 +152,13 @@ export default function Page({ params }: { params: { id: number } }) {
                   </TableRow>
                 </TableBody>
               </Table>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-              Images providet by &nbsp;
-              <Link color="primary" href="https://themoviedb.org">
-                themoviedb.org
-              </Link>
-            </CardFooter>
-          </Card>
+        </div>
+        </div>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          
         </Suspense>
       </div>
-  );
-}
-
-
+    );
+  }
 }
