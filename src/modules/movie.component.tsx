@@ -5,6 +5,7 @@ import {
   CardHeader,
   Chip,
   Image,
+  CardBody,
 } from "@nextui-org/react";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
@@ -31,12 +32,14 @@ export default function Movie({ data, type }: any) {
         />
         <CardHeader className="bg-black flex justify-center align-center border-white/20 border-1 overflow-hidden py-1  absolute before:rounded-xl rounded-large top-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-2 text-center">
           <span>{data.title}</span>
-          {type ? (
-            <Chip color="primary" size="sm" className="absolute right-1">
+        </CardHeader>
+        <CardBody className="absolute bottom-10">
+        {type ? (
+            <Chip color="primary" size="sm">
               new
             </Chip>
           ) : null}
-        </CardHeader>
+        </CardBody>
         <CardFooter className="before:bg-black/10 bg-black/50 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-2">
           <div className="flex justify-between w-full font-semibold text-lg">
             <span>{data.year}</span>
