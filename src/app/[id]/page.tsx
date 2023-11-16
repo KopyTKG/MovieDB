@@ -65,7 +65,7 @@ export default function Page({ params }: { params: { id: number } }) {
       <div className="w-full h-full mb-10">
         <Divider className="mb-2" />
         <div className="container mx-auto flex flex-col items-center xl:flex-row gap-10">
-          <div className="w-max py-2 flex justify-center xl:justify-start">
+          <div className="max-w-[90vw] w-max py-2 flex justify-center xl:justify-start">
             <Image
               alt="Movie poster"
               src={
