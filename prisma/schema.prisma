@@ -15,6 +15,13 @@ type MoviePosters {
   src String
 }
 
+type MovieVideos {
+  key          String
+  name         String
+  published_at String
+  type         String
+}
+
 model Genres {
   id       Int    @id @map("_id")
   backdrop String
@@ -36,5 +43,6 @@ model Movie {
   tagline     String
   title       String
   updatedAt   DateTime         @db.Date
+  videos      MovieVideos[]
   year        Int
 }
