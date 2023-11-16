@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { id: number } }) {
     return (
       <div className="w-full h-full mb-10">
         <Divider className="mb-2" />
-        <div className="container mx-auto flex flex-col items-center xl:flex-row">
+        <div className="container mx-auto flex flex-col items-center xl:flex-row gap-10">
           <div className="w-max py-2 flex justify-center xl:justify-start">
             <Image
               alt="Movie poster"
@@ -72,7 +72,6 @@ export default function Page({ params }: { params: { id: number } }) {
                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
                 data.posters[0].src
               }
-              className="xl:w-[80%]"
             />
           </div>
           <div>
