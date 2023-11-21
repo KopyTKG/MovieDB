@@ -7,6 +7,26 @@ datasource db {
   url      = env("MONGO_URL")
 }
 
+type BackdropsData {
+  aspect_ratio Float
+  file_path    String
+  height       Int
+  iso_639_1    String?
+  vote_average Float
+  vote_count   Int
+  width        Int
+}
+
+type LogosData {
+  aspect_ratio Float
+  file_path    String
+  height       Int
+  iso_639_1    String?
+  vote_average Float
+  vote_count   Int
+  width        Int
+}
+
 type MovieBackdrops {
   src String
 }
@@ -22,6 +42,21 @@ type MovieVideos {
   type         String
 }
 
+type PostersData {
+  aspect_ratio Float
+  file_path    String
+  height       Int
+  iso_639_1    String?
+  vote_average Float
+  vote_count   Int
+  width        Int
+}
+
+model Backdrops {
+  id   Int             @id @map("_id")
+  data BackdropsData[]
+}
+
 model Genres {
   id       Int    @id @map("_id")
   backdrop String
@@ -29,20 +64,32 @@ model Genres {
   name     String
 }
 
+model Logos {
+  id   Int         @id @map("_id")
+  data LogosData[]
+}
+
 model Movie {
-  id          Int              @id @map("_id")
+  /// Multiple data types found: String (ObjectId): 44.5%, Int: 55.5% out of 548 sampled entries
+  id          Int             @id @map("_id")
   backdrops   MovieBackdrops[]
-  createdAt   DateTime         @db.Date
-  description String
+  createdAt   DateTime?        @db.Date
+  description String?
   genres      String[]
-  imdb_id     String
+  id_         Int?             @map("id")
+  imdb_id     String?
   language    String
   posters     MoviePosters[]
   quality     String
-  rating      Float
-  tagline     String
+  rating      Float?
+  tagline     String?
   title       String
-  updatedAt   DateTime         @db.Date
+  updatedAt   DateTime?        @db.Date
   videos      MovieVideos[]
   year        Int
+}
+
+model Posters {
+  id   Int           @id @map("_id")
+  data PostersData[]
 }
