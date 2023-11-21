@@ -2,7 +2,7 @@
 name: Minor Version Update
 about: Used for minor version as tracking issue
 title: ''
-labels: 'Minor Version', 'enchancement'
+labels: ['Minor Version', 'enchancement']
 assignees: ''
 
 ---
