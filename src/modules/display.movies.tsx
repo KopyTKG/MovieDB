@@ -48,7 +48,7 @@ export default function Movies() {
   }
 
   getToken()
- }, [jwt, token])
+ }, [jwt, searchParams, token])
 
  // fetch data from api -> Search path
  const fetchData = useCallback(
@@ -69,7 +69,7 @@ export default function Movies() {
     setError(e)
    }
   },
-  [data, setData, token],
+  [page, token],
  )
 
  useEffect(() => {

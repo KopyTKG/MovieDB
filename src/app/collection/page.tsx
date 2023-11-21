@@ -4,9 +4,9 @@ import SearchNavbar from '@/modules/search.navbar'
 export default function Page() {
  return (
   <>
-   <SearchNavbar/>
+   <SearchNavbar />
    <div className="min-h-screen w-full flex flex-col items-center">
-    <Movies/>
+    <Movies />
    </div>
   </>
  )

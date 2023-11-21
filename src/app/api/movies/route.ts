@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     audience: 'urn:thekrew:audience',
    })
 
-
    if (payload) {
     const data = await prisma.movie.findMany({
      skip: settings.page * settings.limit,

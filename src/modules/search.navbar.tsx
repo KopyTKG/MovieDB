@@ -36,7 +36,6 @@ export default function SearchNavbar() {
       isClearable={true}
       startContent={<MagnifyingGlassIcon className="w-6" />}
       onKeyDown={(e) => Search(e)}
-
       onClear={() => {
        window.scrollTo({
         top: 0,
