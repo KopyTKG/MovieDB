@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     return Response.json(data)
    }
   } catch (e) {
-   return Response.json(JSON.stringify('Invalid Token'))
+   return Response.json(JSON.stringify(e))
   }
  } catch (e) {
   return Response.json('Internal Server Error')
