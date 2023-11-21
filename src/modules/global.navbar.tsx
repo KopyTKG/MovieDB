@@ -17,7 +17,11 @@ export default function NavbarComponent() {
  return (
   <Navbar className="w-full flex" onMenuOpenChange={setIsMenuOpen}>
    <NavbarContent>
-    <NavbarBrand className="flex gap-2">
+    <NavbarBrand
+     className="flex gap-2"
+     onClick={() => {
+      window.location.href = '/'
+     }}>
      <FilmIcon className="w-8" />
      The Movie Database
     </NavbarBrand>

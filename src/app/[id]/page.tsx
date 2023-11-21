@@ -1,6 +1,6 @@
 'use client'
 import API from '@/modules/controllers/api.controller'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, Key } from 'react'
 import JWT from '@/modules/controllers/jwt.controller'
 import {
  Button,
@@ -9,18 +9,21 @@ import {
  Divider,
  Image,
  Link,
+ Tab,
  Table,
  TableBody,
  TableCell,
  TableColumn,
  TableHeader,
  TableRow,
+ Tabs,
 } from '@nextui-org/react'
 import { ErrorAPIToken, NotFound } from '@/lib/errors'
 import ErrorPage from '@/modules/error.page'
+import MediaDisplay from '@/modules/media.display'
+
 export default function Page({ params }: { params: { id: number } }) {
  const [error, setError] = useState<Error | null>(null)
-
  const [data, setData] = useState({
   title: '',
   rating: 0,
@@ -35,6 +38,41 @@ export default function Page({ params }: { params: { id: number } }) {
  })
 
  const jwt = useMemo(() => new JWT(), [])
+ const [tabSelection, setTabSelection] = useState([{ key: '', type: '', name: '', file_path: '' }])
+
+ async function FetchMedia(selected: Key) {
+  let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movie/`
+  switch (selected) {
+   case 'Videos':
+    // eslint-disable-next-line no-case-declarations
+    let parsed: any = []
+    data.videos.forEach((element) => {
+     let obj = {
+      key: element.key,
+      type: element.type,
+      name: element.name,
+      file_path: '',
+     }
+     parsed.push(obj)
+    })
+    setTabSelection(parsed)
+    return
+   default:
+    url += selected.toString().toLocaleLowerCase()
+    break
+  }
+  const tkn = await jwt.getToken()
+  const fetcher = new API(url)
+  const fetched = await fetcher.postData(params.id, tkn)
+  if (fetched === null) {
+   setError(new NotFound())
+  } else if (typeof fetched === 'string') {
+   setError(new ErrorAPIToken())
+  } else {
+   console.log(fetched.data)
+   setTabSelection(fetched.data)
+  }
+ }
 
  useEffect(() => {
   const getData = async () => {
@@ -47,7 +85,7 @@ export default function Page({ params }: { params: { id: number } }) {
     setError(new ErrorAPIToken())
    } else {
     setData(raw)
-    console.log(raw)
+    setTabSelection(raw.videos)
    }
   }
 
@@ -140,21 +178,37 @@ export default function Page({ params }: { params: { id: number } }) {
      </div>
     </div>
     <Divider className="container mx-auto my-5" />
-    <div className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-5">
-     {data.videos.map((video) => {
-      return (
-       <Card key={video.key}>
-        <iframe
-         className="w-full aspect-video"
-         src={`https://www.youtube.com/embed/${video.key}`}
-         frameBorder="0"
-         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-         allowFullScreen
-         title="Embedded youtube"
-        />
-       </Card>
-      )
-     })}
+    <div className="mx-auto container">
+     <Tabs aria-label="Options" onSelectionChange={FetchMedia}>
+      <Tab
+       key="Videos"
+       title="Videos"
+       className="container mx-auto grid grid-cols-1 xl:grid-cols-2 gap-5 text-center">
+       {tabSelection.map((video) => {
+        return (
+         <Card key={video.key}>
+          <iframe
+           className="w-full aspect-video"
+           src={`https://www.youtube.com/embed/${video.key}`}
+           frameBorder="0"
+           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+           allowFullScreen
+           title="Embedded youtube"
+          />
+         </Card>
+        )
+       })}
+      </Tab>
+      <Tab key="Logos" title="Logos">
+       <MediaDisplay media={tabSelection} />
+      </Tab>
+      <Tab key="Posters" title="Posters">
+       <MediaDisplay media={tabSelection} />
+      </Tab>
+      <Tab key="Backdrops" title="Backdrops">
+       <MediaDisplay media={tabSelection} />
+      </Tab>
+     </Tabs>
     </div>
    </div>
   )
