@@ -16,10 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
  return (
   <html lang="en">
    <body className={GeistSans.className}>
-    <main className="min-h-screen h-max pb-3 dark text-foreground bg-background">
+    <main className="min-h-screen h-max dark text-foreground bg-background">
      <GlobalNav />
      {children}
-     <footer className="w-full text-center bottom-0 z-10 fixed bg-background py-2">
+     <footer className="w-full text-center bg-background">
       <a href="https://thekrew.app" target="_blank" rel="noreferrer">
        thekrew.app
       </a>{' '}
