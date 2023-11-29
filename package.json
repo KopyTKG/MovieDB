@@ -22,20 +22,20 @@
     "framer-motion": "^10.16.5",
     "geist": "^1.1.0",
     "ioredis": "^5.3.2",
-    "jose": "^5.1.1",
+    "jose": "^5.1.2",
     "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.5.3",
-    "swiper": "^11.0.4"
+    "swiper": "^11.0.5"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "devDependencies": {
-    "@types/node": "^20.9.3",
-    "@types/react": "^18.2.38",
-    "@types/react-dom": "^18.2.16",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.39",
+    "@types/react-dom": "^18.2.17",
     "autoprefixer": "^10.4.16",
     "concurrently": "^8.2.2",
     "eslint": "8.54.0",
