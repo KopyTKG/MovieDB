@@ -70,21 +70,19 @@ model Logos {
 }
 
 model Movie {
-  /// Multiple data types found: String (ObjectId): 44.5%, Int: 55.5% out of 548 sampled entries
-  id          Int             @id @map("_id")
+  id          Int              @id @map("_id")
   backdrops   MovieBackdrops[]
-  createdAt   DateTime?        @db.Date
-  description String?
+  createdAt   DateTime         @db.Date
+  description String
   genres      String[]
-  id_         Int?             @map("id")
-  imdb_id     String?
+  imdb_id     String
   language    String
   posters     MoviePosters[]
   quality     String
-  rating      Float?
-  tagline     String?
+  rating      Float
+  tagline     String
   title       String
-  updatedAt   DateTime?        @db.Date
+  updatedAt   DateTime         @db.Date
   videos      MovieVideos[]
   year        Int
 }
