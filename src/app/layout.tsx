@@ -4,6 +4,7 @@ import React from 'react'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font'
 import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import Verison from '../../package.json'
 import GlobalNav from '@/modules/global.navbar'
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
      </footer>
     </main>
     <Analytics />
+    <SpeedInsights />
    </body>
   </html>
  )
