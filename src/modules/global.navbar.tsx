@@ -10,7 +10,8 @@ import {
  NavbarMenuToggle,
 } from '@nextui-org/react'
 import { useState } from 'react'
-import { Bars4Icon, FilmIcon, HomeIcon } from '@heroicons/react/24/outline'
+import { Bars4Icon, HomeIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 export default function NavbarComponent() {
  const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -22,8 +23,8 @@ export default function NavbarComponent() {
      onClick={() => {
       window.location.href = '/'
      }}>
-     <FilmIcon className="w-8" />
-     The Movie Database
+     <Image src="/logo.png" width={50} height={50} alt="Logo Icon" />
+     <span className="text-2xl font-bold">MovieDB</span>
     </NavbarBrand>
    </NavbarContent>
    <NavbarContent className="hidden sm:flex gap-4" justify="center">
