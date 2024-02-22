@@ -20,7 +20,7 @@
     "@vercel/speed-insights": "^1.0.9",
     "eslint-config-next": "^14.1.0",
     "flag-icons": "^7.1.0",
-    "framer-motion": "^10.18.0",
+    "framer-motion": "^11.0.5",
     "geist": "^1.2.0",
     "ioredis": "^5.3.2",
     "jose": "^5.2.0",
