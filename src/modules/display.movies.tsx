@@ -36,7 +36,7 @@ export default function Movies() {
 
     setToken(tkn)
     if (typeof raw === 'number') {
-     setMax(Number.parseInt((raw / 20).toFixed(0)) + 1)
+     setMax(Number.parseInt((raw / 20).toFixed(0)))
      const newParams = new URLSearchParams(searchParams.toString())
      const pageParm = newParams.get('page') || '1'
      setPage(Number.parseInt(pageParm))
