@@ -1,6 +1,6 @@
 'use client'
 import API from '@/modules/controllers/api.controller'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react'
 import Movie from './movie.component'
 import JWT from './controllers/jwt.controller'
 import { useSearchParams } from 'next/navigation'
@@ -30,18 +30,7 @@ export default function Movies() {
   const getToken = async () => {
    try {
     const tkn = await jwt.getToken()
-    let url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/movies`
-    const fetcher = new API(url)
-    const raw = await fetcher.getData(tkn)
-
     setToken(tkn)
-    if (typeof raw === 'number') {
-     setMax(Number.parseInt((raw / 20).toFixed(0)))
-     const newParams = new URLSearchParams(searchParams.toString())
-     const pageParm = newParams.get('page') || '1'
-     setPage(Number.parseInt(pageParm))
-     setFetched(true)
-    }
    } catch (e: any) {
     setError(e)
    }
@@ -49,6 +38,25 @@ export default function Movies() {
 
   getToken()
  }, [jwt, searchParams, token])
+
+ // fetch length from api
+ const fetchLength = useCallback(
+  async (url: string, query: { search: string; genre: string }) => {
+   const newUrl = `${url}?s=${query.search}&g=${query.genre}`
+   const fetcher = new API(newUrl)
+   const raw = await fetcher.getData(token)
+   console.log(raw)
+
+   if (typeof raw === 'number') {
+    setMax(Number.parseInt((raw / 20).toFixed(0)))
+    const newParams = new URLSearchParams(searchParams.toString())
+    const pageParm = newParams.get('page') || '1'
+    setPage(Number.parseInt(pageParm))
+    setFetched(true)
+   }
+  },
+  [searchParams, token],
+ )
 
  // fetch data from api -> Search path
  const fetchData = useCallback(
@@ -73,6 +81,7 @@ export default function Movies() {
  )
 
  useEffect(() => {
+  setData([])
   let query = {
    search: '',
    genre: '',
@@ -88,6 +97,14 @@ export default function Movies() {
     url = `${url}/api/movies`
    }
 
+   fetchLength(url, query)
+    .catch((e) => {
+     setError(e)
+    })
+    .finally(() => {
+     setFetched(true)
+    })
+
    fetchData(url, query)
     .catch((e) => {
      setError(e)
@@ -96,7 +113,7 @@ export default function Movies() {
      setLoading(false)
     })
   }
- }, [token, setLoading, max, loading, searchParams, fetchData])
+ }, [token, setLoading, max, loading, searchParams, fetchData, fetchLength])
 
  if (error) {
   return <ErrorPage error={error} />
@@ -106,13 +123,17 @@ export default function Movies() {
     <div className="min:h-screen w-max grid sm:grid-cols-2 xs:grid-cols-1  md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
      {token ? (
       data?.map((movie: any) => {
-       return <Movie key={movie.id} data={movie} />
+       return (
+        <Suspense key={movie.id} fallback={<></>}>
+         <Movie key={movie.id} data={movie} />
+        </Suspense>
+       )
       })
      ) : (
       <></>
      )}
     </div>
-    {fetched ? (
+    {fetched && max > 1 ? (
      <Pagination
       loop
       showControls

@@ -1,5 +1,6 @@
 import { Card, Link, CardFooter, CardHeader, Chip, Image, CardBody } from '@nextui-org/react'
 import '/node_modules/flag-icons/css/flag-icons.min.css'
+import { Suspense } from 'react'
 
 export default function Movie({ data, type }: any) {
  const Language = () => {
@@ -13,12 +14,16 @@ export default function Movie({ data, type }: any) {
  return (
   <Link href={`/${data.id}`} className="flex justify-center">
    <Card isFooterBlurred className="w-max">
-    <Image
-     className="object-cover z-1"
-     alt="Movie poster"
-     width={300}
-     src={'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/' + data.posters[0].src}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+     <Image
+      loading="lazy"
+      className="object-cover z-1"
+      alt="Movie poster"
+      width={300}
+      src={'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/' + data.posters[0].src}
+      fallbackSrc="https://via.placeholder.com/600x900"
+     />
+    </Suspense>
     <CardHeader className="bg-black flex justify-center align-center border-white/20 border-1 overflow-hidden py-1  absolute before:rounded-xl rounded-large top-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-2 text-center">
      <span>{data.title}</span>
     </CardHeader>

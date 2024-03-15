@@ -1,6 +1,6 @@
 {
   "name": "moviedb",
-  "version": "3.9.2",
+  "version": "3.9.3",
   "description": "Movie Database",
   "license":"AGPL-3.0-only",
   "private": true,
